@@ -13,19 +13,19 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{4b73832a-da73-4386-84c2-1076cab802e2}</ProjectGuid>
-    <RootNamespace>Engine</RootNamespace>
+    <ProjectGuid>{a0128bd6-6101-428d-903e-5d92a8dfade0}</ProjectGuid>
+    <RootNamespace>ZomByte</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -46,32 +46,28 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)Bin\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)Intermediate\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
-    <IncludePath>$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)Bin\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)Intermediate\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
-    <IncludePath>$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)ENGINE_BUILD_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)$(ProjectName)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Includes\Engine;$(SolutionDir)$(ProjectName)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>..\Library\Engine\$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Engine.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
-      <Command>xcopy *.h ..\Includes\Engine\ /e /y</Command>
+      <Command>xcopy ..\Library\Engine\$(Platform)\$(Configuration)\Engine.dll $(OutDir) /e /y</Command>
     </PreBuildEvent>
-    <PostBuildEvent>
-      <Command>xcopy $(OutDir)\Engine.dll ..\Library\Engine\$(Platform)\$(Configuration)\ /e /y
-xcopy $(OutDir)\Engine.lib ..\Library\Engine\$(Platform)\$(Configuration)\ /e /y</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -79,35 +75,22 @@ xcopy $(OutDir)\Engine.lib ..\Library\Engine\$(Platform)\$(Configuration)\ /e /y
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)ENGINE_BUILD_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)$(ProjectName)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Includes\Engine;$(SolutionDir)$(ProjectName)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>..\Library\Engine\$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Engine.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
-      <Command>xcopy *.h ..\Includes\Engine\ /e /y</Command>
+      <Command>xcopy ..\Library\Engine\$(Platform)\$(Configuration)\Engine.dll $(OutDir) /e /y</Command>
     </PreBuildEvent>
-    <PostBuildEvent>
-      <Command>xcopy $(OutDir)\Engine.dll ..\Library\Engine\$(Platform)\$(Configuration)\ /e /y
-xcopy $(OutDir)\Engine.lib ..\Library\Engine\$(Platform)\$(Configuration)\ /e /y</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Actor\Actor.h" />
-    <ClInclude Include="Common\Common.h" />
-    <ClInclude Include="Common\RTTI.h" />
-    <ClInclude Include="Core\Input.h" />
-    <ClInclude Include="Engine\Engine.h" />
-    <ClInclude Include="Level\Level.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Actor\Actor.cpp" />
-    <ClCompile Include="Core\Input.cpp" />
-    <ClCompile Include="Engine\Engine.cpp" />
-    <ClCompile Include="Level\Level.cpp" />
+    <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

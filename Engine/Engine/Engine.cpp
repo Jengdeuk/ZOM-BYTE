@@ -67,6 +67,7 @@ namespace JD
 
 	void Engine::Tick(float deltaTime)
 	{
+		std::cout << "Player::Tick(). deltaTime: " << deltaTime << ", FPS: " << (1.0f / deltaTime) << '\n';
 	}
 
 	void Engine::Draw()

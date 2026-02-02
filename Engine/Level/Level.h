@@ -1,0 +1,33 @@
+#pragma once
+
+#include "Common/RTTI.h"
+
+#include <memory>
+#include <vector>
+
+namespace JD
+{
+	class Actor;
+
+	class JD_API Level : public RTTI
+	{
+		RTTI_DECLARATIONS(Level, RTTI)
+
+	public:
+		Level();
+		virtual ~Level();
+
+	public:
+		virtual void BeginPlay();
+		virtual void Tick(float deltaTime);
+		virtual void Draw();
+
+	public:
+		void AddNewActor(std::unique_ptr<Actor> newActor);
+		void ProcessAddAndDestroyActors();
+
+	private:
+		std::vector<std::unique_ptr<Actor>> actors;
+		std::vector<std::unique_ptr<Actor>> addRequestedActors;
+	};
+}
