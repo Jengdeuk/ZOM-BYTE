@@ -1,7 +1,9 @@
 #include "Engine.h"
 
-#include "Level/Level.h"
+#include "Core/Input.h"
 #include "Render/Renderer.h"
+
+#include "Level/Level.h"
 
 #include <Windows.h>
 #include <iostream>
@@ -49,11 +51,18 @@ namespace JD
 			float deltaTime = static_cast<float>(currentTime - previousTime) / frequency.QuadPart;
 			if (deltaTime >= oneFrameTime)
 			{
+				Input::Instance().ProcessInput();
+
 				BeginPlay();
 				Tick(deltaTime);
 				Draw();
 
 				previousTime = currentTime;
+				Input::Instance().SavePreviousInputStates();
+				if (mainLevel)
+				{
+					mainLevel->ProcessAddAndDestroyActors();
+				}
 			}
 		}
 

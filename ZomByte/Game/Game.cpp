@@ -1,11 +1,21 @@
 #include "Game.h"
 
 #include "Engine/Engine.h"
-#include "Level/Level.h"
+#include "Level/GameLevel.h"
+#include "Level/MenuLevel.h"
+
+#include <memory>
+
+using namespace JD;
 
 Game::Game()
 {
+	levels.emplace_back(std::make_unique<GameLevel>());
+	levels.emplace_back(std::make_unique<MenuLevel>());
+
 	state = State::GamePlay;
+
+	Engine::Instance().SetNewLevel(levels[0].get());
 }
 
 Game::~Game()
@@ -20,7 +30,7 @@ Game& Game::Instance()
 
 void Game::Run()
 {
-	JD::Engine::Instance().Run();
+	Engine::Instance().Run();
 }
 
 void Game::ToggleMenu()
@@ -28,5 +38,5 @@ void Game::ToggleMenu()
 	system("cls");
 
 	state = static_cast<State>(1 - static_cast<int>(state));
-	JD::Engine::Instance().SetNewLevel(levels[static_cast<int>(state)].get());
+	Engine::Instance().SetNewLevel(levels[static_cast<int>(state)].get());
 }
