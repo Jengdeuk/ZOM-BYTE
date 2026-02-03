@@ -1,5 +1,8 @@
 #include "Engine.h"
 
+#include "Level/Level.h"
+#include "Render/Renderer.h"
+
 #include <Windows.h>
 #include <iostream>
 
@@ -8,10 +11,7 @@ namespace JD
 	Engine::Engine()
 	{
 		LoadSetting();
-	}
-
-	Engine::~Engine()
-	{
+		Renderer::Instance().Init(Vector2(setting.width, setting.height));
 	}
 
 	Engine& Engine::Instance()
@@ -61,17 +61,45 @@ namespace JD
 		isQuit = true;
 	}
 
+	void Engine::SetNewLevel(Level* newLevel)
+	{
+		mainLevel = newLevel;
+	}
+
 	void Engine::BeginPlay()
 	{
+		if (mainLevel == nullptr)
+		{
+			DEBUG_BREAK("Error: Engine::BeginPlay(). mainLevel is empty.");
+			return;
+		}
+
+		mainLevel->BeginPlay();
 	}
 
 	void Engine::Tick(float deltaTime)
 	{
-		std::cout << "Player::Tick(). deltaTime: " << deltaTime << ", FPS: " << (1.0f / deltaTime) << '\n';
+		//std::cout << "Player::Tick(). deltaTime: " << deltaTime << ", FPS: " << (1.0f / deltaTime) << '\n';
+		if (mainLevel == nullptr)
+		{
+			DEBUG_BREAK("Error: Engine::Tick(). mainLevel is empty.");
+			return;
+		}
+
+		mainLevel->Tick(deltaTime);
 	}
 
 	void Engine::Draw()
 	{
+		if (mainLevel == nullptr)
+		{
+			DEBUG_BREAK("Error: Engine::Draw(). mainLevel is empty.");
+			return;
+		}
+
+		mainLevel->Draw();
+
+		Renderer::Instance().Draw();
 	}
 
 	void Engine::LoadSetting()
@@ -86,7 +114,31 @@ namespace JD
 
 		char buffer[2048] = {};
 		size_t readSize = fread(buffer, sizeof(char), 2048, file);
-		sscanf_s(buffer, "frameRate = %f", &setting.frameRate);
+
+		char* context = nullptr;
+		char* token = nullptr;
+
+		token = strtok_s(buffer, "\n", &context);
+		while (token)
+		{
+			char header[10] = {};
+			sscanf_s(token, "%s", header, 10);
+
+			if (strcmp(header, "framerate") == 0)
+			{
+				sscanf_s(token, "framerate = %f", &setting.frameRate);
+			}
+			else if (strcmp(header, "width") == 0)
+			{
+				sscanf_s(token, "width = %d", &setting.width);
+			}
+			else if (strcmp(header, "height") == 0)
+			{
+				sscanf_s(token, "height = %d", &setting.height);
+			}
+
+			token = strtok_s(nullptr, "\n", &context);
+		}
 
 		fclose(file);
 	}
