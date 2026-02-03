@@ -19,7 +19,7 @@ namespace JD
 			{
 				continue;
 			}
-
+		
 			actor->BeginPlay();
 		}
 	}
@@ -59,17 +59,17 @@ namespace JD
 				++it;
 			}
 		}
-
+		
 		if (addRequestedActors.empty())
 		{
 			return;
 		}
-
+		
 		for (std::unique_ptr<Actor>& actor : addRequestedActors)
 		{
 			actors.emplace_back(std::move(actor));
 		}
-
+		
 		addRequestedActors.clear();
 	}
 }

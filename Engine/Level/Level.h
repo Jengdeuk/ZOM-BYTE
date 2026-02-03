@@ -17,6 +17,12 @@ namespace JD
 		Level();
 		virtual ~Level();
 
+		Level(const Level&) = delete;
+		Level& operator=(const Level&) = delete;
+
+		Level(Level&&) noexcept = default;
+		Level& operator=(Level&&) noexcept = default;
+
 	public:
 		virtual void BeginPlay();
 		virtual void Tick(float deltaTime);

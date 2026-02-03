@@ -33,6 +33,6 @@ namespace JD
 		bool hasBeganPlay = false;
 		bool isActive = true;
 		bool destroyRequested = false;
-		Level* owner;
+		Level* owner = nullptr;
 	};
 }

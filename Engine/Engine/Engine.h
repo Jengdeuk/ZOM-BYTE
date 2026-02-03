@@ -29,10 +29,10 @@ namespace JD
 		void BeginPlay();
 		void Tick(float deltaTime);
 		void Draw();
-		void Shutdown();
 
 	private:
 		void LoadSetting();
+		void Shutdown();
 
 	private:
 		bool isQuit = false;

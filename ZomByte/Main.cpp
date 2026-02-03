@@ -4,5 +4,7 @@
 
 int main()
 {
+	DEBUG_MEMORY_LEAK;
+
 	JD::Engine::Instance().Run();
 }

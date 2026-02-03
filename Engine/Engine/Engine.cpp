@@ -74,10 +74,6 @@ namespace JD
 	{
 	}
 
-	void Engine::Shutdown()
-	{
-	}
-
 	void Engine::LoadSetting()
 	{
 		FILE* file = nullptr;
@@ -93,5 +89,9 @@ namespace JD
 		sscanf_s(buffer, "frameRate = %f", &setting.frameRate);
 
 		fclose(file);
+	}
+
+	void Engine::Shutdown()
+	{
 	}
 }
