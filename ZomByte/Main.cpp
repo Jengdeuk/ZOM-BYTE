@@ -1,10 +1,7 @@
-#include <iostream>
-
-#include "Engine/Engine.h"
+#include "Game/Game.h"
 
 int main()
 {
 	DEBUG_MEMORY_LEAK;
-
-	JD::Engine::Instance().Run();
+	Game::Instance().Run();
 }

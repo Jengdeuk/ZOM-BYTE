@@ -11,6 +11,10 @@ namespace JD
 	{
 	}
 
+	Level::Level(Level&&) noexcept = default;
+
+	Level& Level::operator=(Level&&) noexcept = default;
+
 	void Level::BeginPlay()
 	{
 		for (std::unique_ptr<Actor>& actor : actors)

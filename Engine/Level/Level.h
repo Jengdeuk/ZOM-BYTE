@@ -20,8 +20,8 @@ namespace JD
 		Level(const Level&) = delete;
 		Level& operator=(const Level&) = delete;
 
-		Level(Level&&) noexcept = default;
-		Level& operator=(Level&&) noexcept = default;
+		Level(Level&&) noexcept;
+		Level& operator=(Level&&) noexcept;
 
 	public:
 		virtual void BeginPlay();

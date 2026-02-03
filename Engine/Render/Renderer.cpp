@@ -31,6 +31,14 @@ namespace JD
 		}
 	}
 
+	Renderer::Renderer()
+	{
+	}
+
+	Renderer::~Renderer()
+	{
+	}
+
 	Renderer& Renderer::Instance()
 	{
 		static Renderer instance;

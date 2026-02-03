@@ -14,6 +14,10 @@ namespace JD
 		Renderer::Instance().Init(Vector2(setting.width, setting.height));
 	}
 
+	Engine::~Engine()
+	{
+	}
+
 	Engine& Engine::Instance()
 	{
 		static Engine instance;

@@ -2,8 +2,6 @@
 
 #include "Common/Common.h"
 
-#include <memory>
-
 namespace JD
 {
 	class Level;
@@ -19,7 +17,7 @@ namespace JD
 
 	private:
 		Engine();
-		~Engine() = default;
+		virtual ~Engine();
 
 		Engine(Engine&) = delete;
 		Engine& operator=(Engine&) = delete;

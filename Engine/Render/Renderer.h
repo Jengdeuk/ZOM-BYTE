@@ -31,8 +31,8 @@ namespace JD
 		};
 
 	private:
-		Renderer() = default;
-		~Renderer() = default;
+		Renderer();
+		~Renderer();
 
 		Renderer(const Renderer&) = delete;
 		Renderer& operator=(const Renderer&) = delete;
