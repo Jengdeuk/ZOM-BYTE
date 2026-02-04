@@ -7,8 +7,9 @@ namespace JD
 	Actor::Actor(const char* image, const Vector2& position, const Color color, const int sortingOrder)
 		: position(position), color(color), sortingOrder(sortingOrder)
 	{
-		this->image = std::make_unique<char[]>(strlen(image) + 1);
-		std::memcpy(this->image.get(), image, strlen(image) + 1);
+		size_t length = strlen(image) + 1;
+		this->image = std::make_unique<char[]>(length);
+		std::memcpy(this->image.get(), image, length);
 	}
 
 	Actor::~Actor()

@@ -40,3 +40,8 @@ void Game::ToggleMenu()
 	state = static_cast<State>(1 - static_cast<int>(state));
 	Engine::Instance().SetNewLevel(levels[static_cast<int>(state)].get());
 }
+
+void Game::QuitEngine()
+{
+	Engine::Instance().QuitEngine();
+}

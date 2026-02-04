@@ -26,22 +26,22 @@ void Player::Tick(float deltaTime)
 		return;
 	}
 
-	if (Input::Instance().GetKeyDown(VK_RIGHT) && GetPosition().x < 20)
+	if (Input::Instance().GetKey(VK_RIGHT) && GetPosition().x < 20)
 	{
 		Vector2 newPosition(GetPosition().x + 1, GetPosition().y);
 		SetPosition(newPosition);
 	}
-	if (Input::Instance().GetKeyDown(VK_LEFT) && GetPosition().x > 0)
+	if (Input::Instance().GetKey(VK_LEFT) && GetPosition().x > 0)
 	{
 		Vector2 newPosition(GetPosition().x - 1, GetPosition().y);
 		SetPosition(newPosition);
 	}
-	if (Input::Instance().GetKeyDown(VK_UP) && GetPosition().y > 0)
+	if (Input::Instance().GetKey(VK_UP) && GetPosition().y > 0)
 	{
 		Vector2 newPosition(GetPosition().x, GetPosition().y - 1);
 		SetPosition(newPosition);
 	}
-	if (Input::Instance().GetKeyDown(VK_DOWN) && GetPosition().y < 10)
+	if (Input::Instance().GetKey(VK_DOWN) && GetPosition().y < 10)
 	{
 		Vector2 newPosition(GetPosition().x, GetPosition().y + 1);
 		SetPosition(newPosition);

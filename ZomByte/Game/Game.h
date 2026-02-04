@@ -32,6 +32,7 @@ public:
 
 public:
 	void ToggleMenu();
+	void QuitEngine();
 
 private:
 	std::vector<std::unique_ptr<JD::Level>> levels;
