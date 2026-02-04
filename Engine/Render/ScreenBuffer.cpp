@@ -37,11 +37,6 @@ namespace JD
 		{
 			CloseHandle(buffer);
 		}
-
-		CONSOLE_CURSOR_INFO info;
-		GetConsoleCursorInfo(buffer, &info);
-		info.bVisible = true;
-		SetConsoleCursorInfo(buffer, &info);
 	}
 
 	void ScreenBuffer::Clear()
