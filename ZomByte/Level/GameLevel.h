@@ -2,7 +2,9 @@
 
 #include "Level/Level.h"
 
-class GameLevel : public JD::Level
+using namespace JD;
+
+class GameLevel : public Level
 {
 	RTTI_DECLARATIONS(GameLevel, Level)
 

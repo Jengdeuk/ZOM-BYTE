@@ -5,8 +5,8 @@
 
 using namespace JD;
 
-Player::Player(const Vector2& position)
-	: Super("P", position, Color::Red, 10)
+Player::Player(const Vector2<int>& position)
+	: Super("P", position, Color::DarkYellow, 10)
 {
 }
 
@@ -28,22 +28,22 @@ void Player::Tick(float deltaTime)
 
 	if (Input::Instance().GetKey(VK_RIGHT) && GetPosition().x < 20)
 	{
-		Vector2 newPosition(GetPosition().x + 1, GetPosition().y);
+		Vector2<float> newPosition(GetPosition().x + 1, GetPosition().y);
 		SetPosition(newPosition);
 	}
 	if (Input::Instance().GetKey(VK_LEFT) && GetPosition().x > 0)
 	{
-		Vector2 newPosition(GetPosition().x - 1, GetPosition().y);
+		Vector2<float> newPosition(GetPosition().x - 1, GetPosition().y);
 		SetPosition(newPosition);
 	}
 	if (Input::Instance().GetKey(VK_UP) && GetPosition().y > 0)
 	{
-		Vector2 newPosition(GetPosition().x, GetPosition().y - 1);
+		Vector2<float> newPosition(GetPosition().x, GetPosition().y - 1);
 		SetPosition(newPosition);
 	}
 	if (Input::Instance().GetKey(VK_DOWN) && GetPosition().y < 10)
 	{
-		Vector2 newPosition(GetPosition().x, GetPosition().y + 1);
+		Vector2<float> newPosition(GetPosition().x, GetPosition().y + 1);
 		SetPosition(newPosition);
 	}
 }

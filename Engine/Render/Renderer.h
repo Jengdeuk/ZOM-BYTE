@@ -16,7 +16,7 @@ namespace JD
 		{
 			Frame(int bufferCount);
 
-			void Clear(const Vector2& screenSize);
+			void Clear(const Vector2<int>& screenSize);
 
 			std::unique_ptr<CHAR_INFO[]> charInfoArray = nullptr;
 			std::unique_ptr<int[]> sortingOrderArray = nullptr;
@@ -25,7 +25,7 @@ namespace JD
 		struct RenderCommand
 		{
 			const char* text = nullptr;
-			Vector2 position;
+			Vector2<int> position;
 			Color color = Color::White;
 			int sortingOrder = 0;
 		};
@@ -39,11 +39,11 @@ namespace JD
 
 	public:
 		static Renderer& Instance();
-		void Init(const Vector2& screenSize);
+		void Init(const Vector2<int>& screenSize);
 
 	public:
 		void Draw();
-		void Submit(const char* text, const Vector2& position, Color color = Color::White, int sortingOrder = 0);
+		void Submit(const char* text, const Vector2<int>& position, Color color = Color::White, int sortingOrder = 0);
 
 	private:
 		void Clear();
@@ -52,7 +52,7 @@ namespace JD
 
 	private:
 		bool initialized = false;
-		Vector2 screenSize{};
+		Vector2<int> screenSize{};
 		std::unique_ptr<Frame> frame = nullptr;
 		std::unique_ptr<ScreenBuffer> screenBuffers[2] = {};
 		int currentBufferIndex = 0;

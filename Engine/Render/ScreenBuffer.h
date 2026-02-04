@@ -9,7 +9,7 @@ namespace JD
 	class ScreenBuffer
 	{
 	public:
-		ScreenBuffer(const Vector2& screenSize);
+		ScreenBuffer(const Vector2<int>& screenSize);
 		~ScreenBuffer();
 
 	public:
@@ -19,6 +19,6 @@ namespace JD
 
 	private:
 		HANDLE buffer = nullptr;
-		Vector2 screenSize;
+		Vector2<int> screenSize;
 	};
 }

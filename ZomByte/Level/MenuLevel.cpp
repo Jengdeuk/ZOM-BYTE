@@ -62,11 +62,11 @@ void MenuLevel::Tick(float deltaTime)
 
 void MenuLevel::Draw()
 {
-	Renderer::Instance().Submit("ZOM-BYTE", Vector2::Zero);
+	Renderer::Instance().Submit("ZOM-BYTE", Vector2<int>(0, 0));
 
 	for (int i = 0; i < static_cast<int>(items.size()); ++i)
 	{
 		Color textColor = (i == currentIndex ? selectedColor : unselectedColor);
-		Renderer::Instance().Submit(items[i]->text.get(), Vector2(0, 2 + i), textColor);
+		Renderer::Instance().Submit(items[i]->text.get(), Vector2<int>(0, 2 + i), textColor);
 	}
 }

@@ -8,5 +8,5 @@ using namespace JD;
 
 GameLevel::GameLevel()
 {
-	AddNewActor(std::make_unique<Player>(Vector2(3, 1)));
+	AddNewActor(std::make_unique<Player>(Vector2<int>(0, 1)));
 }

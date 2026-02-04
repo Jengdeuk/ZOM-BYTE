@@ -2,12 +2,14 @@
 
 #include "Actor/Actor.h"
 
-class Player : public JD::Actor
+using namespace JD;
+
+class Player : public Actor
 {
 	RTTI_DECLARATIONS(Player, Actor)
 	
 public:
-	Player(const JD::Vector2& position);
+	Player(const Vector2<int>& position);
 
 public:
 	virtual void BeginPlay() override;

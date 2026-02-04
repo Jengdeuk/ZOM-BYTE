@@ -4,7 +4,7 @@
 
 namespace JD
 {
-	Actor::Actor(const char* image, const Vector2& position, const Color color, const int sortingOrder)
+	Actor::Actor(const char* image, const Vector2<int>& position, const Color color, const int sortingOrder)
 		: position(position), color(color), sortingOrder(sortingOrder)
 	{
 		size_t length = strlen(image) + 1;
@@ -27,6 +27,6 @@ namespace JD
 
 	void Actor::Draw()
 	{
-		Renderer::Instance().Submit(image.get(), position, color, sortingOrder);
+		Renderer::Instance().Submit(image.get(), Vector2<int>(position), color, sortingOrder);
 	}
 }

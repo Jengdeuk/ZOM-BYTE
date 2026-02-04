@@ -13,7 +13,7 @@ namespace JD
 	Engine::Engine()
 	{
 		LoadSetting();
-		Renderer::Instance().Init(Vector2(setting.width, setting.height));
+		Renderer::Instance().Init(Vector2<int>(setting.width, setting.height));
 	}
 
 	Engine::~Engine()

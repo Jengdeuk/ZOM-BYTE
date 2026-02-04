@@ -16,7 +16,7 @@ namespace JD
 		RTTI_DECLARATIONS(Actor, RTTI)
 
 	public:
-		Actor(const char* image = " ", const Vector2& position = Vector2::Zero, const Color color = Color::White, const int sortingOrder = 0);
+		Actor(const char* image = " ", const Vector2<int>& position = Vector2<int>(0, 0), const Color color = Color::White, const int sortingOrder = 0);
 		virtual ~Actor();
 
 		Actor(const Actor&) = delete;
@@ -36,8 +36,8 @@ namespace JD
 		inline void SetOwner(Level* newOwner) { owner = newOwner; }
 		inline Level* GetOwner() const { return owner; }
 
-		inline void SetPosition(const Vector2& newPosition) { position = newPosition; }
-		inline Vector2 GetPosition() const { return position; }
+		inline void SetPosition(const Vector2<float>& newPosition) { position = newPosition; }
+		inline Vector2<float> GetPosition() const { return position; }
 
 	private:
 		bool hasBeganPlay = false;
@@ -47,7 +47,7 @@ namespace JD
 
 	private:
 		std::unique_ptr<char[]> image = nullptr;
-		Vector2 position{};
+		Vector2<float> position{};
 		Color color = Color::White;
 		int sortingOrder = 0;
 	};

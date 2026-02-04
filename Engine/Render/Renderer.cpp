@@ -12,7 +12,7 @@ namespace JD
 		memset(sortingOrderArray.get(), 0, sizeof(int) * bufferCount);
 	}
 
-	void Renderer::Frame::Clear(const Vector2& screenSize)
+	void Renderer::Frame::Clear(const Vector2<int>& screenSize)
 	{
 		const int width = screenSize.x;
 		const int height = screenSize.y;
@@ -45,7 +45,7 @@ namespace JD
 		return instance;
 	}
 
-	void Renderer::Init(const Vector2& inScreenSize)
+	void Renderer::Init(const Vector2<int>& inScreenSize)
 	{
 		if (initialized)
 		{
@@ -121,7 +121,7 @@ namespace JD
 		renderQueue.clear();
 	}
 
-	void Renderer::Submit(const char* text, const Vector2& position, Color color, int sortingOrder)
+	void Renderer::Submit(const char* text, const Vector2<int>& position, Color color, int sortingOrder)
 	{
 		renderQueue.emplace_back(RenderCommand{ text, position, color, sortingOrder });
 	}

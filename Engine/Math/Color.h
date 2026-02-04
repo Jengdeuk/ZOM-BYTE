@@ -9,9 +9,20 @@ namespace JD
 	enum class JD_API Color : unsigned short
 	{
 		Black = 0,
-		Red = FOREGROUND_RED,
-		Green = FOREGROUND_GREEN,
-		Blue = FOREGROUND_BLUE,
-		White = Red | Green | Blue
+		DarkBlue = 1,
+		DarkGreen = 2,
+		DarkCyan = 3,
+		DarkRed = 4,
+		DarkMagenta = 5,
+		DarkYellow = 6,
+		Gray = 7,
+		DarkGray = 8,
+		Blue = 9,
+		Green = 10,
+		Cyan = 11,
+		Red = 12,
+		Magenta = 13,
+		Yellow = 14,
+		White = 15
 	};
 }
