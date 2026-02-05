@@ -62,9 +62,6 @@
     <ClCompile Include="Actor\Actor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Math\Vector2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Render\ScreenBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

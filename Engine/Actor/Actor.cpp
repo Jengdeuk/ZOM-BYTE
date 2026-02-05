@@ -4,12 +4,14 @@
 
 namespace JD
 {
-	Actor::Actor(const char* image, const Vector2<int>& position, const Color color, const int sortingOrder)
-		: position(position), color(color), sortingOrder(sortingOrder)
+	Actor::Actor(const InitData& initData)
+		: position(initData.position),
+		color(initData.color),
+		sortingOrder(initData.sortingOrder)
 	{
-		size_t length = strlen(image) + 1;
+		size_t length = strlen(initData.image) + 1;
 		this->image = std::make_unique<char[]>(length);
-		std::memcpy(this->image.get(), image, length);
+		std::memcpy(this->image.get(), initData.image, length);
 	}
 
 	Actor::~Actor()

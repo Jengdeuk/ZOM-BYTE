@@ -15,8 +15,16 @@ namespace JD
 	{
 		RTTI_DECLARATIONS(Actor, RTTI)
 
+		struct InitData
+		{
+			const char* image = nullptr;
+			Vector2<int> position;
+			Color color = Color::Gray;
+			int sortingOrder = 0;
+		};
+
 	public:
-		Actor(const char* image = " ", const Vector2<int>& position = Vector2<int>(0, 0), const Color color = Color::White, const int sortingOrder = 0);
+		Actor(const InitData& initData);
 		virtual ~Actor();
 
 		Actor(const Actor&) = delete;
@@ -37,7 +45,7 @@ namespace JD
 		inline Level* GetOwner() const { return owner; }
 
 		inline void SetPosition(const Vector2<float>& newPosition) { position = newPosition; }
-		inline Vector2<float> GetPosition() const { return position; }
+		inline const Vector2<float>& GetPosition() const { return position; }
 
 	private:
 		bool hasBeganPlay = false;

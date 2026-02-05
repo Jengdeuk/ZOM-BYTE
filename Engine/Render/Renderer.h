@@ -26,7 +26,7 @@ namespace JD
 		{
 			const char* text = nullptr;
 			Vector2<int> position;
-			Color color = Color::White;
+			Color color = Color::Gray;
 			int sortingOrder = 0;
 		};
 

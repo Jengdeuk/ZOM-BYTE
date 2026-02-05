@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Common/Common.h"
+#include "Math/Vector2.h"
 
 namespace JD
 {
@@ -29,6 +30,7 @@ namespace JD
 		void Run();
 		void QuitEngine();
 		void SetNewLevel(Level* newLevel);
+		inline const Vector2<int> GetScreenSize() const { return Vector2<int>(setting.width, setting.height); }
 
 	private:
 		void BeginPlay();

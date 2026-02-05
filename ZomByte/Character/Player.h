@@ -1,15 +1,15 @@
 #pragma once
 
-#include "Actor/Actor.h"
+#include "Character/Character.h"
 
 using namespace JD;
 
-class Player : public Actor
+class Player : public Character
 {
-	RTTI_DECLARATIONS(Player, Actor)
+	RTTI_DECLARATIONS(Player, Character)
 	
 public:
-	Player(const Vector2<int>& position);
+	Player(const InitData& initData, const Status& status);
 
 public:
 	virtual void BeginPlay() override;
