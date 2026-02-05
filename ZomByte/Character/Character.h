@@ -21,6 +21,9 @@ public:
 public:
 	void Move(const Vector2<float>& direction);
 
+public:
+	inline const int GetHealthPoint() const { return status.healthPoint; }
+
 private:
 	Status status;
 };

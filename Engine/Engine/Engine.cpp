@@ -92,7 +92,6 @@ namespace JD
 
 	void Engine::Tick(float deltaTime)
 	{
-		//std::cout << "Player::Tick(). deltaTime: " << deltaTime << ", FPS: " << (1.0f / deltaTime) << '\n';
 		if (mainLevel == nullptr)
 		{
 			DEBUG_BREAK("Error: Engine::Tick(). mainLevel is empty.");
@@ -137,9 +136,9 @@ namespace JD
 			char header[10] = {};
 			sscanf_s(token, "%s", header, 10);
 
-			if (strcmp(header, "framerate") == 0)
+			if (strcmp(header, "frameRate") == 0)
 			{
-				sscanf_s(token, "framerate = %f", &setting.frameRate);
+				sscanf_s(token, "frameRate = %f", &setting.frameRate);
 			}
 			else if (strcmp(header, "width") == 0)
 			{
