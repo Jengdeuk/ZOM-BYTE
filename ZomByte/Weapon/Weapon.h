@@ -37,6 +37,7 @@ public:
 public:
 	inline Player* GetOwner() const { return owner; }
 	Level* GetLevel() const;
+	inline const int GetAttackRate() const { return attackRate; }
 
 private:
 	Timer timer;

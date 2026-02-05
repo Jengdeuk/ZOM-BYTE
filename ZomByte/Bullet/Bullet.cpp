@@ -1,5 +1,7 @@
 #include "Bullet.h"
 
+#include "Level/GameLevel.h"
+
 const char* Bullet::bulletImage[8] =
 {
 	"\\", "|", "/",
@@ -7,15 +9,16 @@ const char* Bullet::bulletImage[8] =
 	"/",  "|", "\\"
 };
 
-Bullet::Bullet(const InitData& initData)
+Bullet::Bullet(const Actor::InitData& actorInitData, const InitData& initData)
 	: Super(
 		Super::InitData
 		{
 			bulletImage[initData.dirIdx],
-			Vector2<int>(initData.firePos),
-			Color::White,
-			5
+			actorInitData.position,
+			actorInitData.color,
+			actorInitData.sortingOrder
 		}),
+	damage(initData.damage),
 	direction(initData.fireDir),
 	moveSpeed(initData.moveSpeed)
 {
@@ -34,7 +37,7 @@ void Bullet::Tick(float deltaTime)
 	Super::Tick(deltaTime);
 
 	timer.Tick(deltaTime);
-	if (timer.IsTimeOut())
+	if (timer.IsTimeOut() || IsOutOfMap())
 	{
 		Destroy();
 		return;
@@ -46,4 +49,11 @@ void Bullet::Tick(float deltaTime)
 void Bullet::UpdateMovement(float deltaTime)
 {
 	SetPosition(GetPosition() + direction * moveSpeed * deltaTime);
+}
+
+bool Bullet::IsOutOfMap()
+{
+	static const Vector2<int>& mapSize = (GetOwner()->As<GameLevel>())->GetMapSize();
+	const Vector2<int> position = Vector2<int>(GetPosition());
+	return position.x < 0 || position.x >= mapSize.x || position.y < 0 || position.y >= mapSize.y;
 }

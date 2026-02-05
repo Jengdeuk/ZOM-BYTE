@@ -21,6 +21,9 @@ public:
 	virtual void Draw() override;
 
 private:
+	void TakeWeapons();
+
+private:
 	void MovementInput(float deltaTime);
 	void ChangeWeaponInput();
 	void UseWeaponInput();

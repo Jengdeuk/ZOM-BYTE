@@ -5,6 +5,8 @@
 #include "Game/Game.h"
 
 #include "Weapon/Pistol.h"
+#include "Weapon/Uzi.h"
+#include "Weapon/Shotgun.h"
 
 #include <memory>
 
@@ -19,16 +21,7 @@ void Player::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Weapon::InitData initData;
-	initData.timerTime = 0.5f;
-	initData.attackRate = 1;
-	initData.owner = this;
-
-	std::unique_ptr<Weapon> newWeapon = std::make_unique<Pistol>(initData);
-	weapons.emplace_back(newWeapon.get());
-	GetOwner()->AddNewActor(std::move(newWeapon));
-
-	currentWeapon = weapons.front();
+	TakeWeapons();
 }
 
 void Player::Tick(float deltaTime)
@@ -49,6 +42,41 @@ void Player::Tick(float deltaTime)
 void Player::Draw()
 {
 	Super::Draw();
+}
+
+void Player::TakeWeapons()
+{
+	std::unique_ptr<Weapon> newWeapon;
+	Weapon::InitData initData;
+
+	// 1. Pistol
+	initData.timerTime = 0.425f;
+	initData.attackRate = 1;
+	initData.owner = this;
+
+	newWeapon = std::make_unique<Pistol>(initData);
+	weapons.emplace_back(newWeapon.get());
+	GetOwner()->AddNewActor(std::move(newWeapon));
+
+	// 2. Uzi
+	initData.timerTime = 0.175f;
+	initData.attackRate = 1;
+	initData.owner = this;
+
+	newWeapon = std::make_unique<Uzi>(initData);
+	weapons.emplace_back(newWeapon.get());
+	GetOwner()->AddNewActor(std::move(newWeapon));
+
+	// 3. Shotgun
+	initData.timerTime = 1.0f;
+	initData.attackRate = 4;
+	initData.owner = this;
+
+	newWeapon = std::make_unique<Shotgun>(initData);
+	weapons.emplace_back(newWeapon.get());
+	GetOwner()->AddNewActor(std::move(newWeapon));
+
+	currentWeapon = weapons.front();
 }
 
 void Player::MovementInput(float deltaTime)
@@ -109,7 +137,7 @@ void Player::ChangeWeaponInput()
 		selectIndex = 4;
 	}
 	
-	if (selectIndex >= 0)
+	if (selectIndex >= 0 && selectIndex < static_cast<int>(weapons.size()))
 	{
 		(GetOwner()->As<GameLevel>())->SetCurrentWeaponIndex(selectIndex);
 		currentWeapon = weapons[selectIndex];

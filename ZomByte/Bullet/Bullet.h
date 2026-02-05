@@ -12,17 +12,17 @@ class Bullet : public Actor
 
 	struct InitData
 	{
+		int damage = 0;
 		int dirIdx = 0;
 		float lifeTime = 0.0f;
 		float moveSpeed = 0.0f;
-		Vector2<float> firePos;
 		Vector2<float> fireDir;
 	};
 
 	static const char* bulletImage[8];
 
 public:
-	Bullet(const InitData& initData);
+	Bullet(const Actor::InitData& actorInitData, const InitData& initData);
 
 private:
 	virtual void BeginPlay() override;
@@ -32,6 +32,10 @@ private:
 	void UpdateMovement(float deltaTime);
 
 private:
+	bool IsOutOfMap();
+
+private:
+	int damage = 0;
 	Timer timer;
 	Vector2<float> direction;
 	float moveSpeed = 0.0f;
