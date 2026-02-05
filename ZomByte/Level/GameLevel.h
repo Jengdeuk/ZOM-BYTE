@@ -21,6 +21,7 @@ public:
 
 public:
 	inline const Vector2<int>& GetMapSize() const { return mapSize; }
+	inline void SetCurrentWeaponIndex(int index) { currentWeaponIndex = index; }
 
 private:
 	void DrawHUD();
@@ -32,12 +33,14 @@ private:
 private:
 	int killed = 0;
 	float survivalTime = 0.0f;
+	int currentWeaponIndex = 0;
 
 private:
 	float lastDeltaTime = 0.0f;
 
 private:
 	char buffer_hp[256] = {};
+	char buffer_killed[256] = {};
 	char buffer_stime[256] = {};
 	char buffer_fps[256] = {};
 };

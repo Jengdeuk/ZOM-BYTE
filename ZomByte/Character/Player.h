@@ -2,7 +2,11 @@
 
 #include "Character/Character.h"
 
+#include <memory>
+
 using namespace JD;
+
+class Weapon;
 
 class Player : public Character
 {
@@ -15,4 +19,12 @@ public:
 	virtual void BeginPlay() override;
 	virtual void Tick(float deltaTime) override;
 	virtual void Draw() override;
+
+private:
+	void MovementInput(float deltaTime);
+	void ChangeWeaponInput();
+
+private:
+	Weapon* currentWeapon = nullptr;
+	std::unique_ptr<Weapon> weapons[5] = {};
 };

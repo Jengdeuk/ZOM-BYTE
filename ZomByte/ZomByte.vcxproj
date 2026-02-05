@@ -96,6 +96,7 @@
     <ClCompile Include="Level\GameLevel.cpp" />
     <ClCompile Include="Level\MenuLevel.cpp" />
     <ClCompile Include="Client.cpp" />
+    <ClCompile Include="Weapon\Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character\Character.h" />
@@ -103,6 +104,7 @@
     <ClInclude Include="Game\Game.h" />
     <ClInclude Include="Level\GameLevel.h" />
     <ClInclude Include="Level\MenuLevel.h" />
+    <ClInclude Include="Weapon\Weapon.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
