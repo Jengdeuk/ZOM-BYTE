@@ -9,6 +9,11 @@ namespace JD
 		color(initData.color),
 		sortingOrder(initData.sortingOrder)
 	{
+		if (initData.image == nullptr)
+		{
+			return;
+		}
+
 		size_t length = strlen(initData.image) + 1;
 		this->image = std::make_unique<char[]>(length);
 		std::memcpy(this->image.get(), initData.image, length);
@@ -30,5 +35,10 @@ namespace JD
 	void Actor::Draw()
 	{
 		Renderer::Instance().Submit(image.get(), Vector2<int>(position), color, sortingOrder);
+	}
+
+	void Actor::Destroy()
+	{
+		destroyRequested = true;
 	}
 }

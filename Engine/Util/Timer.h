@@ -1,8 +1,10 @@
 #pragma once
 
+#include "Common/Common.h"
+
 namespace JD
 {
-	class Timer
+	class JD_API Timer
 	{
 	public:
 		Timer(float targetTime = 1.0f);

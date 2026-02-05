@@ -2,7 +2,7 @@
 
 #include "Character/Character.h"
 
-#include <memory>
+#include <vector>
 
 using namespace JD;
 
@@ -23,8 +23,9 @@ public:
 private:
 	void MovementInput(float deltaTime);
 	void ChangeWeaponInput();
+	void UseWeaponInput();
 
 private:
 	Weapon* currentWeapon = nullptr;
-	std::unique_ptr<Weapon> weapons[5] = {};
+	std::vector<Weapon*> weapons;
 };

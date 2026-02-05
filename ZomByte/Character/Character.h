@@ -19,7 +19,7 @@ public:
 	Character(const InitData& initData, const Status& status);
 
 public:
-	void Move(const Vector2<float>& direction);
+	void Move(float deltaTime, const Vector2<float>& direction);
 
 public:
 	inline const int GetHealthPoint() const { return status.healthPoint; }

@@ -6,7 +6,7 @@ Character::Character(const InitData& initData, const Status& status)
 {
 }
 
-void Character::Move(const Vector2<float>& direction)
+void Character::Move(float deltaTime, const Vector2<float>& direction)
 {
-	SetPosition(GetPosition() + direction * status.moveSpeed);
+	SetPosition(GetPosition() + direction * status.moveSpeed * deltaTime);
 }

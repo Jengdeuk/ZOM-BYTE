@@ -36,6 +36,9 @@ namespace JD
 		virtual void Draw();
 
 	public:
+		void Destroy();
+
+	public:
 		inline bool HasBeganPlay() const { return hasBeganPlay; }
 		inline bool IsActive() const { return isActive && destroyRequested == false; }
 		inline bool DestroyRequested() const { return destroyRequested; }
