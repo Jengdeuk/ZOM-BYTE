@@ -4,6 +4,8 @@
 #include "Core/Input.h"
 #include "Render/Renderer.h"
 
+#include "Physics/Collision.h"
+
 #include "Game/Game.h"
 
 #include "Weapon/Pistol.h"
@@ -17,6 +19,7 @@ using namespace JD;
 Player::Player(const InitData& initData, const Status& status)
 	: Super(initData, status)
 {
+	SetCollisionFilter(CollisionFilter{ PLAYER, ITEM });
 }
 
 void Player::BeginPlay()

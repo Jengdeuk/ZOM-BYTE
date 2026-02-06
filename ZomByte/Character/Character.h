@@ -33,5 +33,6 @@ public:
 
 private:
 	Status status;
-	Vector2<float> velocity;
+	Vector2<float> moveVelocity;
+	Vector2<float> forceVelocity;
 };

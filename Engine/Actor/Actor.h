@@ -23,6 +23,17 @@ namespace JD
 			int sortingOrder = 0;
 		};
 
+		struct CollisionFilter
+		{
+			unsigned int layer = 0;
+			unsigned int mask = 0;
+		};
+
+		inline bool ShouldCollide(const CollisionFilter& a, const CollisionFilter& b)
+		{
+			return (a.mask & b.layer) && (b.mask & a.layer);
+		}
+
 	public:
 		Actor(const InitData& initData);
 		virtual ~Actor();
@@ -56,6 +67,9 @@ namespace JD
 		inline void SetPosition(const Vector2<float>& newPosition) { position = newPosition; }
 		inline const Vector2<float>& GetPosition() const { return position; }
 
+		inline void SetCollisionFilter(const CollisionFilter& filter) { collisionFilter = filter; }
+		inline const CollisionFilter& GetCollisionFilter() const { return collisionFilter; }
+
 	private:
 		bool hasBeganPlay = false;
 		bool isActive = true;
@@ -67,5 +81,8 @@ namespace JD
 		Vector2<float> position{};
 		Color color = Color::White;
 		int sortingOrder = 0;
+
+	private:
+		CollisionFilter collisionFilter;
 	};
 }

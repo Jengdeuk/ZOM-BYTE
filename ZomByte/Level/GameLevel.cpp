@@ -2,8 +2,12 @@
 
 #include "Engine/Engine.h"
 #include "Render/Renderer.h"
+#include "Physics/PhysicsManager.h"
+
 #include "Character/Player.h"
 #include "Character/Zombie.h"
+
+#include "Util/Util.h"
 
 #include <memory>
 
@@ -31,15 +35,20 @@ GameLevel::GameLevel(const Vector2<int>& mapSize)
 	// Zombie
 	initData.image = "Z";
 	initData.color = Color::DarkGreen;
-	initData.position = Vector2<int>(13, 5);
 	initData.sortingOrder = 9;
 
 	status.healthPoint = 3;
 	status.attackRate = 1;
 	status.moveSpeed = 3;
 
-	std::unique_ptr<Zombie> newZombie = std::make_unique<Zombie>(initData, status);
-	AddNewActor(std::move(newZombie));
+	for (int i = 0; i < 30; ++i)
+	{
+		const int summonX = Util::Random(-mapSize.x / 2, mapSize.x / 2);
+		const int summonY = Util::Random(-mapSize.y / 2, mapSize.y / 2);
+		initData.position = Vector2<int>(summonX, summonY);
+		std::unique_ptr<Zombie> newZombie = std::make_unique<Zombie>(initData, status);
+		AddNewActor(std::move(newZombie));
+	}
 }
 
 void GameLevel::Tick(float deltaTime)
@@ -62,6 +71,7 @@ void GameLevel::Draw()
 
 void GameLevel::PhysicsUpdate(float deltaTime)
 {
+	PhysicsManager::Instance().PhysicsUpdate(Super::GetActors(), deltaTime);
 }
 
 void GameLevel::TransformUpdate(float deltaTime)

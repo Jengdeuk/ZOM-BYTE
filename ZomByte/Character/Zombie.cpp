@@ -4,6 +4,8 @@
 #include "Core/Input.h"
 #include "Game/Game.h"
 
+#include "Physics/Collision.h"
+
 #include "Weapon/Pistol.h"
 #include "Weapon/Uzi.h"
 #include "Weapon/Shotgun.h"
@@ -15,6 +17,7 @@ using namespace JD;
 Zombie::Zombie(const InitData& initData, const Status& status)
 	: Super(initData, status)
 {
+	SetCollisionFilter(CollisionFilter{ ZOMBIE, PLAYER });
 }
 
 void Zombie::BeginPlay()

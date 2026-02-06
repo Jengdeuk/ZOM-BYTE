@@ -29,6 +29,11 @@ private:
 	virtual void BeginPlay() override;
 	virtual void Tick(float deltaTime) override;
 
+public:
+	inline const Vector2<float>& GetLastPos() const { return lastPosition; }
+	inline const Vector2<float>& GetFireDir() const { return direction; }
+	inline const int GetDamage() const { return damage; }
+
 private:
 	void UpdateMovement(float deltaTime);
 

@@ -36,8 +36,12 @@ namespace JD
 		void AddNewActor(std::unique_ptr<Actor> newActor);
 		void ProcessAddAndDestroyActors();
 
+	protected:
+		using Actors = std::vector<std::unique_ptr<Actor>>;
+		const Actors& GetActors() const { return actors; }
+
 	private:
-		std::vector<std::unique_ptr<Actor>> actors;
-		std::vector<std::unique_ptr<Actor>> addRequestedActors;
+		Actors actors;
+		Actors addRequestedActors;
 	};
 }
