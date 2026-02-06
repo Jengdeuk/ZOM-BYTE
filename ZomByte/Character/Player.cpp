@@ -2,6 +2,8 @@
 #include "Level/GameLevel.h"
 
 #include "Core/Input.h"
+#include "Render/Renderer.h"
+
 #include "Game/Game.h"
 
 #include "Weapon/Pistol.h"
@@ -86,30 +88,31 @@ void Player::MovementInput(float deltaTime)
 	Vector2<float> moveDirection;
 
 	bool isMove = false;
-	if (Input::Instance().GetKey(VK_RIGHT) && GetPosition().x < mapSize.x - 1)
+	if (Input::Instance().GetKey(VK_RIGHT))
 	{
 		isMove = true;
 		moveDirection.x = 1;
 	}
-	if (Input::Instance().GetKey(VK_LEFT) && GetPosition().x > 0)
+	if (Input::Instance().GetKey(VK_LEFT))
 	{
 		isMove = true;
 		moveDirection.x = -1;
 	}
-	if (Input::Instance().GetKey(VK_UP) && GetPosition().y > 0)
-	{
-		isMove = true;
-		moveDirection.y = -1;
-	}
-	if (Input::Instance().GetKey(VK_DOWN) && GetPosition().y < mapSize.y - 1)
+	if (Input::Instance().GetKey(VK_UP))
 	{
 		isMove = true;
 		moveDirection.y = 1;
+	}
+	if (Input::Instance().GetKey(VK_DOWN))
+	{
+		isMove = true;
+		moveDirection.y = -1;
 	}
 
 	if (isMove)
 	{
 		Super::Move(deltaTime, moveDirection.Normalized());
+		Renderer::Instance().SetViewTransform(Vector2<int>(GetPosition() * -1));
 	}
 }
 

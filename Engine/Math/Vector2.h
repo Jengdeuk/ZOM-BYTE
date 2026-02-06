@@ -20,7 +20,7 @@ namespace JD
 
 		template<typename U>
 		explicit Vector2(const Vector2<U>& other)
-			: x(static_cast<T>(other.x)), y(static_cast<T>(other.y))
+			: x(static_cast<T>(std::round(other.x))), y(static_cast<T>(std::round(other.y)))
 		{
 		}
 

@@ -4,14 +4,14 @@
 
 const Vector2<float> Weapon::dir[8] =
 {
-	Vector2<float>(-1.0f, -1.0f).Normalized(),
-	Vector2<float>(0.0f, -1.0f).Normalized(),
-	Vector2<float>(1.0f, -1.0f).Normalized(),
-	Vector2<float>(-1.0f, 0.0f).Normalized(),
-	Vector2<float>(1.0f, 0.0f).Normalized(),
 	Vector2<float>(-1.0f, 1.0f).Normalized(),
 	Vector2<float>(0.0f, 1.0f).Normalized(),
-	Vector2<float>(1.0f, 1.0f).Normalized()
+	Vector2<float>(1.0f, 1.0f).Normalized(),
+	Vector2<float>(-1.0f, 0.0f).Normalized(),
+	Vector2<float>(1.0f, 0.0f).Normalized(),
+	Vector2<float>(-1.0f, -1.0f).Normalized(),
+	Vector2<float>(0.0f, -1.0f).Normalized(),
+	Vector2<float>(1.0f, -1.0f).Normalized()
 };
 
 Weapon::Weapon(const InitData& initData)

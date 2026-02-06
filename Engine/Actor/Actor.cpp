@@ -36,27 +36,40 @@ namespace JD
 
 	void Actor::Draw()
 	{
-		//if (IsOutOfMap())
-		//{
-		//	return;
-		//}
+		Vector2<int> screenPos;
+		if (!TransformWorldToScreen(screenPos))
+		{
+			return;
+		}
 
-		//// 1. world space -> view space
-		//Vector2<float> viewPosition = 
+		Renderer::Instance().Submit(image.get(), screenPos, color, sortingOrder);
+	}
 
-		//// 2. veiw space -> screen space
+	bool Actor::TransformWorldToScreen(Vector2<int>& outScreenPos)
+	{
+		static const Vector2<int> mapHalfSize = Engine::Instance().GetMapSize() / 2;
 
-		Renderer::Instance().Submit(image.get(), Vector2<int>(position), color, sortingOrder);
+		Vector2<int> worldPos = Vector2<int>(position);
+
+		// 1. world space -> view space
+		Vector2<int> viewPos = worldPos + Renderer::Instance().GetViewTransform();
+
+		// 2. culling
+		if (viewPos.x <= -mapHalfSize.x || viewPos.x >= mapHalfSize.x || viewPos.y <= -mapHalfSize.y || viewPos.y >= mapHalfSize.y)
+		{
+			return false;
+		}
+
+		// 3. veiw space -> screen space
+		outScreenPos = viewPos;
+		outScreenPos.y *= -1;
+		outScreenPos += mapHalfSize;
+
+		return true;
 	}
 
 	void Actor::Destroy()
 	{
 		destroyRequested = true;
-	}
-
-	bool Actor::IsOutOfMap()
-	{
-		static const Vector2<float> mapHalfSize = Vector2<float>(Engine::Instance().GetMapSize()) * 0.5f;
-		return position.x <= - mapHalfSize.x  || position.x >= mapHalfSize.x || position.y <= - mapHalfSize.y || position.y >= mapHalfSize.y;
 	}
 }

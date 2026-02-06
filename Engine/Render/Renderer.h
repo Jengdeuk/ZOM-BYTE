@@ -45,10 +45,17 @@ namespace JD
 		void Draw();
 		void Submit(const char* text, const Vector2<int>& position, Color color = Color::White, int sortingOrder = 0);
 
+	public:
+		inline void SetViewTransform(const Vector2<int>& transform) { viewTransform = transform; }
+		inline const Vector2<int>& GetViewTransform() const { return viewTransform; }
+
 	private:
 		void Clear();
 		void Present(); // 활성화 버퍼 교환
 		inline ScreenBuffer* GetCurrentBuffer() { return screenBuffers[currentBufferIndex].get(); }
+
+	private:
+		Vector2<int> viewTransform;
 
 	private:
 		bool initialized = false;

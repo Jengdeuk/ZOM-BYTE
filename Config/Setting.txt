@@ -2,4 +2,4 @@ frameRate = 120
 screenW = 100
 screenH = 30
 mapW = 70
-mapH = 25
+mapH = 26

@@ -35,6 +35,9 @@ namespace JD
 		virtual void Tick(float deltaTime);
 		virtual void Draw();
 
+	private:
+		bool TransformWorldToScreen(Vector2<int>& outScreenPos);
+
 	public:
 		void Destroy();
 
@@ -49,9 +52,6 @@ namespace JD
 
 		inline void SetPosition(const Vector2<float>& newPosition) { position = newPosition; }
 		inline const Vector2<float>& GetPosition() const { return position; }
-
-	private:
-		bool IsOutOfMap();
 
 	private:
 		bool hasBeganPlay = false;

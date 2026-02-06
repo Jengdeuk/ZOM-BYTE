@@ -16,7 +16,7 @@ GameLevel::GameLevel(const Vector2<int>& mapSize)
 	Actor::InitData initData;
 	initData.image = "P";
 	initData.color = Color::DarkYellow;
-	initData.position = Vector2<int>(mapSize.x >> 1, mapSize.y >> 1);
+	initData.position = Vector2<int>(0, 0);
 	initData.sortingOrder = 10;
 
 	Character::Status status;
@@ -31,7 +31,7 @@ GameLevel::GameLevel(const Vector2<int>& mapSize)
 	// Zombie
 	initData.image = "Z";
 	initData.color = Color::DarkGreen;
-	initData.position = Vector2<int>(mapSize.x - 1, mapSize.y >> 1);
+	initData.position = Vector2<int>(13, 5);
 	initData.sortingOrder = 9;
 
 	status.healthPoint = 3;
