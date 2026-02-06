@@ -41,11 +41,6 @@ void Player::Tick(float deltaTime)
 	UseWeaponInput();
 }
 
-void Player::Draw()
-{
-	Super::Draw();
-}
-
 void Player::TakeWeapons()
 {
 	std::unique_ptr<Weapon> newWeapon;
@@ -111,8 +106,7 @@ void Player::MovementInput(float deltaTime)
 
 	if (isMove)
 	{
-		Super::Move(deltaTime, moveDirection.Normalized());
-		Renderer::Instance().SetViewTransform(Vector2<int>(GetPosition() * -1));
+		Character::AccumulateMove(moveDirection.Normalized());
 	}
 }
 
@@ -187,4 +181,11 @@ void Player::UseWeaponInput()
 	{
 		currentWeapon->Fire(dirIdx);
 	}
+}
+
+void Player::TransformUpdate(float deltaTime)
+{
+	Super::TransformUpdate(deltaTime);
+
+	Renderer::Instance().SetViewTransform(Vector2<int>(GetPosition() * -1));
 }

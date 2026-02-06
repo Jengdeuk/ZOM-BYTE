@@ -21,9 +21,6 @@ public:
 	virtual void Draw() override;
 
 private:
-	void MovementInput(float deltaTime);
-
-private:
 	Weapon* currentWeapon = nullptr;
 	std::vector<Weapon*> weapons;
 };

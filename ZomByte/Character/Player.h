@@ -18,7 +18,6 @@ public:
 public:
 	virtual void BeginPlay() override;
 	virtual void Tick(float deltaTime) override;
-	virtual void Draw() override;
 
 private:
 	void TakeWeapons();
@@ -27,6 +26,9 @@ private:
 	void MovementInput(float deltaTime);
 	void ChangeWeaponInput();
 	void UseWeaponInput();
+
+private:
+	virtual void TransformUpdate(float deltaTime) override;
 
 private:
 	Weapon* currentWeapon = nullptr;

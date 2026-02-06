@@ -29,6 +29,10 @@ namespace JD
 		virtual void Draw();
 
 	public:
+		virtual void PhysicsUpdate(float deltaTime);
+		virtual void TransformUpdate(float deltaTime);
+
+	public:
 		void AddNewActor(std::unique_ptr<Actor> newActor);
 		void ProcessAddAndDestroyActors();
 

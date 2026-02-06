@@ -46,6 +46,9 @@ void GameLevel::Tick(float deltaTime)
 {
 	Super::Tick(deltaTime);
 
+	PhysicsUpdate(deltaTime);
+	TransformUpdate(deltaTime);
+
 	survivalTime += deltaTime;
 	lastDeltaTime = deltaTime;
 }
@@ -55,6 +58,15 @@ void GameLevel::Draw()
 	Super::Draw();
 
 	DrawHUD();
+}
+
+void GameLevel::PhysicsUpdate(float deltaTime)
+{
+}
+
+void GameLevel::TransformUpdate(float deltaTime)
+{
+	Super::TransformUpdate(deltaTime);
 }
 
 void GameLevel::DrawHUD()

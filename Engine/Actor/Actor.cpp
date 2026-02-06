@@ -36,6 +36,11 @@ namespace JD
 
 	void Actor::Draw()
 	{
+		if (destroyRequested)
+		{
+			return;
+		}
+
 		Vector2<int> screenPos;
 		if (!TransformWorldToScreen(screenPos))
 		{
@@ -43,6 +48,10 @@ namespace JD
 		}
 
 		Renderer::Instance().Submit(image.get(), screenPos, color, sortingOrder);
+	}
+
+	void Actor::TransformUpdate(float deltaTime)
+	{
 	}
 
 	bool Actor::TransformWorldToScreen(Vector2<int>& outScreenPos)

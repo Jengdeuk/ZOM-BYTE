@@ -20,6 +20,10 @@ public:
 	virtual void Draw() override;
 
 public:
+	void PhysicsUpdate(float deltaTime);
+	void TransformUpdate(float deltaTime);
+
+public:
 	inline const Vector2<int>& GetMapSize() const { return mapSize; }
 	inline void SetCurrentWeaponIndex(int index) { currentWeaponIndex = index; }
 

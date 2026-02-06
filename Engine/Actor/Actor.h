@@ -35,6 +35,9 @@ namespace JD
 		virtual void Tick(float deltaTime);
 		virtual void Draw();
 
+	public:
+		virtual void TransformUpdate(float deltaTime);
+
 	private:
 		bool TransformWorldToScreen(Vector2<int>& outScreenPos);
 

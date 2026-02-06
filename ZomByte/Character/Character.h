@@ -19,11 +19,19 @@ public:
 	Character(const InitData& initData, const Status& status);
 
 public:
-	void Move(float deltaTime, const Vector2<float>& direction);
+	virtual void Tick(float deltaTime) override;
+
+public:
+	virtual void TransformUpdate(float deltaTime) override;
+
+public:
+	void AccumulateForce(const Vector2<float>& velocity);
+	void AccumulateMove(const Vector2<float>& direction);
 
 public:
 	inline const int GetHealthPoint() const { return status.healthPoint; }
 
 private:
 	Status status;
+	Vector2<float> velocity;
 };

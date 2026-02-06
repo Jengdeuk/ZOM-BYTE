@@ -6,7 +6,24 @@ Character::Character(const InitData& initData, const Status& status)
 {
 }
 
-void Character::Move(float deltaTime, const Vector2<float>& direction)
+void Character::Tick(float deltaTime)
 {
-	SetPosition(GetPosition() + direction * status.moveSpeed * deltaTime);
+	Super::Tick(deltaTime);
+
+	velocity = Vector2<float>();
+}
+
+void Character::TransformUpdate(float deltaTime)
+{
+	SetPosition(GetPosition() + velocity * deltaTime);
+}
+
+void Character::AccumulateForce(const Vector2<float>& velocity)
+{
+	this->velocity += velocity;
+}
+
+void Character::AccumulateMove(const Vector2<float>& direction)
+{
+	velocity += direction * status.moveSpeed;
 }
