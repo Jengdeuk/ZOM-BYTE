@@ -16,6 +16,7 @@ class Bullet : public Actor
 		int dirIdx = 0;
 		float lifeTime = 0.0f;
 		float moveSpeed = 0.0f;
+		float drag = 0.0f;
 		Vector2<float> fireDir;
 	};
 
@@ -36,4 +37,8 @@ private:
 	Timer timer;
 	Vector2<float> direction;
 	float moveSpeed = 0.0f;
+	float drag = 0.0f;
+
+private:
+	Vector2<float> lastPosition;
 };

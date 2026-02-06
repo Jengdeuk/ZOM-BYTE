@@ -51,8 +51,9 @@ void Shotgun::Fire(const int dirIdx)
 
 	Bullet::InitData initData;
 	initData.damage = GetAttackRate();
-	initData.lifeTime = 0.15f;
-	initData.moveSpeed = 70.0f;
+	initData.lifeTime = 1.0f;
+	initData.moveSpeed = 150.0f;
+	initData.drag = 6.0f;
 
 	for (int i = 0; i < 3; ++i)
 	{
