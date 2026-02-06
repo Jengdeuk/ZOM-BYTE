@@ -51,6 +51,9 @@ namespace JD
 		inline const Vector2<float>& GetPosition() const { return position; }
 
 	private:
+		bool IsOutOfMap();
+
+	private:
 		bool hasBeganPlay = false;
 		bool isActive = true;
 		bool destroyRequested = false;

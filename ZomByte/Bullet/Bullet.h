@@ -32,9 +32,6 @@ private:
 	void UpdateMovement(float deltaTime);
 
 private:
-	bool IsOutOfMap();
-
-private:
 	int damage = 0;
 	Timer timer;
 	Vector2<float> direction;

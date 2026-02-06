@@ -12,8 +12,10 @@ namespace JD
 		struct EngineSetting
 		{
 			float frameRate = 0.0f;
-			int width = 0;
-			int height = 0;
+			int screenW = 0;
+			int screenH = 0;
+			int mapW = 0;
+			int mapH = 0;
 		};
 
 	private:
@@ -30,7 +32,8 @@ namespace JD
 		void Run();
 		void QuitEngine();
 		void SetNewLevel(Level* newLevel);
-		inline const Vector2<int> GetScreenSize() const { return Vector2<int>(setting.width, setting.height); }
+		inline const Vector2<int> GetScreenSize() const { return Vector2<int>(setting.screenW, setting.screenH); }
+		inline const Vector2<int> GetMapSize() const { return Vector2<int>(setting.mapW, setting.mapH); }
 
 	private:
 		void BeginPlay();

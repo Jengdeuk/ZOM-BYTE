@@ -37,7 +37,7 @@ void Bullet::Tick(float deltaTime)
 	Super::Tick(deltaTime);
 
 	timer.Tick(deltaTime);
-	if (timer.IsTimeOut() || IsOutOfMap())
+	if (timer.IsTimeOut())
 	{
 		Destroy();
 		return;
@@ -49,11 +49,4 @@ void Bullet::Tick(float deltaTime)
 void Bullet::UpdateMovement(float deltaTime)
 {
 	SetPosition(GetPosition() + direction * moveSpeed * deltaTime);
-}
-
-bool Bullet::IsOutOfMap()
-{
-	static const Vector2<int>& mapSize = (GetOwner()->As<GameLevel>())->GetMapSize();
-	const Vector2<int> position = Vector2<int>(GetPosition());
-	return position.x < 0 || position.x >= mapSize.x || position.y < 0 || position.y >= mapSize.y;
 }

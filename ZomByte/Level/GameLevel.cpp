@@ -3,6 +3,7 @@
 #include "Engine/Engine.h"
 #include "Render/Renderer.h"
 #include "Character/Player.h"
+#include "Character/Zombie.h"
 
 #include <memory>
 
@@ -11,6 +12,7 @@ using namespace JD;
 GameLevel::GameLevel(const Vector2<int>& mapSize)
 	: mapSize(mapSize)
 {
+	// Player
 	Actor::InitData initData;
 	initData.image = "P";
 	initData.color = Color::DarkYellow;
@@ -25,6 +27,19 @@ GameLevel::GameLevel(const Vector2<int>& mapSize)
 	std::unique_ptr<Player> newPlayer = std::make_unique<Player>(initData, status);
 	player = newPlayer.get();
 	AddNewActor(std::move(newPlayer));
+
+	// Zombie
+	initData.image = "Z";
+	initData.color = Color::DarkGreen;
+	initData.position = Vector2<int>(mapSize.x - 1, mapSize.y >> 1);
+	initData.sortingOrder = 9;
+
+	status.healthPoint = 3;
+	status.attackRate = 1;
+	status.moveSpeed = 3;
+
+	std::unique_ptr<Zombie> newZombie = std::make_unique<Zombie>(initData, status);
+	AddNewActor(std::move(newZombie));
 }
 
 void GameLevel::Tick(float deltaTime)
@@ -65,7 +80,7 @@ void GameLevel::DrawHUD()
 	sprintf_s(buffer_killed, "%d", killed);
 	Renderer::Instance().Submit(buffer_killed, Vector2<int>(mapSize.x + 2 + 8, 4), Color::DarkGreen);
 
-	// 12 - weapon
+	// mapSize.y - weapon
 	const int weaponY = mapSize.y - 5;
 	Renderer::Instance().Submit("*", Vector2<int>(mapSize.x, weaponY + currentWeaponIndex), Color::Gray);
 	

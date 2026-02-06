@@ -5,18 +5,19 @@
 #include <memory>
 #include <vector>
 
-enum class State
-{
-	None = -1,
-	GamePlay = 0,
-	Menu = 1,
-	Length
-};
-
 namespace JD { class Level; }
 
 class Game
 {
+public:
+	enum class State
+	{
+		None = -1,
+		GamePlay = 0,
+		Menu = 1,
+		Length
+	};
+
 private:
 	Game();
 	~Game();

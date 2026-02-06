@@ -10,7 +10,7 @@ using namespace JD;
 
 Game::Game()
 {
-	levels.emplace_back(std::make_unique<GameLevel>(Vector2<int>(70, 25)));
+	levels.emplace_back(std::make_unique<GameLevel>(Engine::Instance().GetMapSize()));
 	levels.emplace_back(std::make_unique<MenuLevel>());
 
 	state = State::GamePlay;

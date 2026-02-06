@@ -3,6 +3,8 @@
 #include "Core/Input.h"
 #include "Render/Renderer.h"
 
+#include "Util/Util.h"
+
 #include "Level/Level.h"
 
 #include <Windows.h>
@@ -12,8 +14,11 @@ namespace JD
 {
 	Engine::Engine()
 	{
+		DEBUG_MEMORY_LEAK;
+		Util::SetRandomSeed();
+
 		LoadSetting();
-		Renderer::Instance().Init(Vector2<int>(setting.width, setting.height));
+		Renderer::Instance().Init(Vector2<int>(setting.screenW, setting.screenH));
 	}
 
 	Engine::~Engine()
@@ -140,13 +145,21 @@ namespace JD
 			{
 				sscanf_s(token, "frameRate = %f", &setting.frameRate);
 			}
-			else if (strcmp(header, "width") == 0)
+			else if (strcmp(header, "screenW") == 0)
 			{
-				sscanf_s(token, "width = %d", &setting.width);
+				sscanf_s(token, "screenW = %d", &setting.screenW);
 			}
-			else if (strcmp(header, "height") == 0)
+			else if (strcmp(header, "screenH") == 0)
 			{
-				sscanf_s(token, "height = %d", &setting.height);
+				sscanf_s(token, "screenH = %d", &setting.screenH);
+			}
+			else if (strcmp(header, "mapW") == 0)
+			{
+				sscanf_s(token, "mapW = %d", &setting.mapW);
+			}
+			else if (strcmp(header, "mapH") == 0)
+			{
+				sscanf_s(token, "mapH = %d", &setting.mapH);
 			}
 
 			token = strtok_s(nullptr, "\n", &context);
