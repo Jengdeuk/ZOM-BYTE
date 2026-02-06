@@ -24,6 +24,9 @@ public:
 	void TransformUpdate(float deltaTime);
 
 public:
+	void OnKilled();
+
+public:
 	inline const Vector2<int>& GetMapSize() const { return mapSize; }
 	inline void SetCurrentWeaponIndex(int index) { currentWeaponIndex = index; }
 

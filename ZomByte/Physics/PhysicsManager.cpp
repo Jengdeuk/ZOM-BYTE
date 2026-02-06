@@ -123,8 +123,10 @@ void PhysicsManager::ProcessCollsionBulletToZombie(const Actors& actors, float d
 		bullet->Destroy();
 
 		const Vec2f& knockBackDir = bullet->GetFireDir();
-		const float force = 15.0f * static_cast<float>(bullet->GetDamage());
+		const int damage = bullet->GetDamage();
+		const float force = 15.0f * static_cast<float>(damage);
 		target->AccumulateForce(knockBackDir * force);
+		target->OnDamaged(damage);
 	}
 }
 

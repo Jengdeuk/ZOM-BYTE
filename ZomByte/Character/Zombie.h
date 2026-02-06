@@ -20,6 +20,9 @@ public:
 	virtual void Tick(float deltaTime) override;
 	virtual void Draw() override;
 
+public:
+	virtual void OnDamaged(const int damage) override;
+
 private:
 	Weapon* currentWeapon = nullptr;
 	std::vector<Weapon*> weapons;

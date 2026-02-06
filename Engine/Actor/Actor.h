@@ -70,6 +70,10 @@ namespace JD
 		inline void SetCollisionFilter(const CollisionFilter& filter) { collisionFilter = filter; }
 		inline const CollisionFilter& GetCollisionFilter() const { return collisionFilter; }
 
+		inline void SetColor(const Color newColor) { color = newColor; }
+
+		inline const InitData& GetInitData() const { return initData; }
+
 	private:
 		bool hasBeganPlay = false;
 		bool isActive = true;
@@ -83,6 +87,7 @@ namespace JD
 		int sortingOrder = 0;
 
 	private:
+		InitData initData;
 		CollisionFilter collisionFilter;
 	};
 }

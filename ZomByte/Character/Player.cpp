@@ -81,8 +81,6 @@ void Player::TakeWeapons()
 
 void Player::MovementInput(float deltaTime)
 {
-	static const Vector2<int>& mapSize = (GetOwner()->As<GameLevel>())->GetMapSize();
-
 	Vector2<float> moveDirection;
 
 	bool isMove = false;

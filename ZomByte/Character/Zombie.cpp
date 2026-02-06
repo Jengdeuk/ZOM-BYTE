@@ -34,3 +34,13 @@ void Zombie::Draw()
 {
 	Super::Draw();
 }
+
+void Zombie::OnDamaged(const int damage)
+{
+	Super::OnDamaged(damage);
+
+	if (GetHealthPoint() == 0)
+	{
+		(GetOwner()->As<GameLevel>())->OnKilled();
+	}
+}

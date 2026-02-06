@@ -79,6 +79,11 @@ void GameLevel::TransformUpdate(float deltaTime)
 	Super::TransformUpdate(deltaTime);
 }
 
+void GameLevel::OnKilled()
+{
+	++killed;
+}
+
 void GameLevel::DrawHUD()
 {
 	// 0 - time, fps

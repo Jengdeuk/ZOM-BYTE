@@ -7,7 +7,8 @@
 namespace JD
 {
 	Actor::Actor(const InitData& initData)
-		: position(initData.position),
+		: initData(initData),
+		position(initData.position),
 		color(initData.color),
 		sortingOrder(initData.sortingOrder)
 	{

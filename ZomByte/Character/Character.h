@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Actor/Actor.h"
+#include "Util/Timer.h"
 
 using namespace JD;
 
@@ -19,7 +20,11 @@ public:
 	Character(const InitData& initData, const Status& status);
 
 public:
+	virtual void BeginPlay() override;
 	virtual void Tick(float deltaTime) override;
+
+public:
+	virtual void OnDamaged(const int damage);
 
 public:
 	virtual void TransformUpdate(float deltaTime) override;
@@ -32,7 +37,14 @@ public:
 	inline const int GetHealthPoint() const { return status.healthPoint; }
 
 private:
+	void PlayDamagedAnimation();
+
+private:
 	Status status;
 	Vector2<float> moveVelocity;
 	Vector2<float> forceVelocity;
+
+private:
+	bool isPlayingDamagedAnimation = false;
+	Timer damagedAnimationTimer;
 };
