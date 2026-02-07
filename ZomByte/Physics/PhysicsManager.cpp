@@ -102,6 +102,11 @@ void PhysicsManager::ProcessCollsionBulletToZombie(const Actors& actors, float d
 
 		for (auto& zombie : zombies)
 		{
+			if (zombie->IsDead())
+			{
+				continue;
+			}
+
 			float t = inf - 5.0f;
 			if (!CheckBulletHit(t, bullet->GetLastPos(), bullet->GetPosition(), zombie->GetPosition(), dstRadius))
 			{

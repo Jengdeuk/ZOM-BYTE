@@ -35,6 +35,7 @@ public:
 
 public:
 	inline const int GetHealthPoint() const { return status.healthPoint; }
+	inline const bool IsDead() const { return isDead; }
 
 private:
 	void PlayDamagedAnimation();
@@ -47,4 +48,8 @@ private:
 private:
 	bool isPlayingDamagedAnimation = false;
 	Timer damagedAnimationTimer;
+
+private:
+	bool isDead = false;
+	Timer destroyTimer;
 };

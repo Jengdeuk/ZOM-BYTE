@@ -70,6 +70,8 @@ namespace JD
 		inline void SetCollisionFilter(const CollisionFilter& filter) { collisionFilter = filter; }
 		inline const CollisionFilter& GetCollisionFilter() const { return collisionFilter; }
 
+		void SetImage(const char* newImage);
+		void SetImage(std::unique_ptr<char[]> newImage);
 		inline void SetColor(const Color newColor) { color = newColor; }
 
 		inline const InitData& GetInitData() const { return initData; }

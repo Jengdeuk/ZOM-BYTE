@@ -1,5 +1,8 @@
 #include "Character.h"
 
+#include "Level/Level.h"
+#include "Effect/BloodEffect.h"
+
 #include <cmath>
 
 Character::Character(const InitData& initData, const Status& status)
@@ -7,6 +10,7 @@ Character::Character(const InitData& initData, const Status& status)
 	status(status)
 {
 	damagedAnimationTimer.SetTargetTime(0.3f);
+	destroyTimer.SetTargetTime(0.5f);
 }
 
 void Character::BeginPlay()
@@ -14,6 +18,7 @@ void Character::BeginPlay()
 	Super::BeginPlay();
 
 	damagedAnimationTimer.Reset();
+	destroyTimer.Reset();
 }
 
 void Character::Tick(float deltaTime)
@@ -22,6 +27,24 @@ void Character::Tick(float deltaTime)
 
 	moveVelocity = Vector2<float>();
 	forceVelocity = forceVelocity * std::exp(-8.0f * deltaTime);
+
+	if (isDead)
+	{
+		destroyTimer.Tick(deltaTime);
+		if (destroyTimer.IsTimeOut())
+		{
+			Destroy();
+
+			// BloodEffect
+			Actor::InitData initData;
+			initData.position = Vector2<int>(GetPosition());
+			initData.sortingOrder = 1;
+			std::unique_ptr<BloodEffect> newEffect = std::make_unique<BloodEffect>(initData);
+			GetOwner()->AddNewActor(std::move(newEffect));
+		}
+
+		return;
+	}
 
 	if (!isPlayingDamagedAnimation)
 	{
@@ -42,7 +65,7 @@ void Character::OnDamaged(const int damage)
 	if (status.healthPoint <= 0)
 	{
 		status.healthPoint = 0;
-		Destroy();
+		isDead = true;
 	}
 
 	PlayDamagedAnimation();

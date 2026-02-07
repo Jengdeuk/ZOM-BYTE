@@ -94,6 +94,8 @@
     <ClCompile Include="Character\Character.cpp" />
     <ClCompile Include="Character\Player.cpp" />
     <ClCompile Include="Character\Zombie.cpp" />
+    <ClCompile Include="Effect\BloodEffect.cpp" />
+    <ClCompile Include="Effect\Effect.cpp" />
     <ClCompile Include="Game\Game.cpp" />
     <ClCompile Include="Level\GameLevel.cpp" />
     <ClCompile Include="Level\MenuLevel.cpp" />
@@ -109,6 +111,8 @@
     <ClInclude Include="Character\Character.h" />
     <ClInclude Include="Character\Player.h" />
     <ClInclude Include="Character\Zombie.h" />
+    <ClInclude Include="Effect\BloodEffect.h" />
+    <ClInclude Include="Effect\Effect.h" />
     <ClInclude Include="Game\Game.h" />
     <ClInclude Include="Level\GameLevel.h" />
     <ClInclude Include="Level\MenuLevel.h" />

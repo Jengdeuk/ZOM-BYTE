@@ -82,4 +82,16 @@ namespace JD
 	{
 		destroyRequested = true;
 	}
+
+	void Actor::SetImage(const char* newImage)
+	{
+		size_t length = strlen(newImage) + 1;
+		image = std::make_unique<char[]>(length);
+		std::memcpy(image.get(), newImage, length);
+	}
+
+	void Actor::SetImage(std::unique_ptr<char[]> newImage)
+	{
+		image = std::move(newImage);
+	}
 }
