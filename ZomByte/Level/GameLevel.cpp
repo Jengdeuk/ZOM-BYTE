@@ -16,8 +16,20 @@ using namespace JD;
 GameLevel::GameLevel(const Vector2<int>& mapSize)
 	: mapSize(mapSize)
 {
-	// Player
+	LoadGround("ground.txt");
+
 	Actor::InitData initData;
+
+	// Background
+	//initData.image = backgroundImg.get();
+	//initData.color = Color::DarkGray;
+	//initData.position = Vector2<int>(0, 0);
+	//initData.sortingOrder = 0;
+	//
+	//std::unique_ptr<Actor> newActor = std::make_unique<Actor>(initData);
+	//AddNewActor(std::move(newActor));
+
+	// Player
 	initData.image = "P";
 	initData.color = Color::DarkYellow;
 	initData.position = Vector2<int>(0, 0);
@@ -84,6 +96,30 @@ void GameLevel::OnKilled()
 	++killed;
 }
 
+void GameLevel::LoadGround(const char* filename)
+{
+	char path[2048] = {};
+	sprintf_s(path, 2048, "../Assets/%s", filename);
+
+	FILE* file = nullptr;
+	fopen_s(&file, path, "rt");
+
+	if (file == nullptr)
+	{
+		DEBUG_BREAK("Failed to open background file.");
+	}
+
+	fseek(file, 0, SEEK_END);
+	size_t fileSize = ftell(file);
+	rewind(file);
+
+	backgroundImg = std::make_unique<char[]>(fileSize + 1);
+
+	size_t readSize = fread(backgroundImg.get(), sizeof(char), fileSize, file);
+
+	fclose(file);
+}
+
 void GameLevel::DrawHUD()
 {
 	// 0 - time, fps
@@ -93,19 +129,20 @@ void GameLevel::DrawHUD()
 	sprintf_s(buffer_fps, "FPS:%d", static_cast<int>(1.0f / lastDeltaTime));
 	Renderer::Instance().Submit(buffer_fps, Vector2<int>(Engine::Instance().GetScreenSize().x - 7, 0), Color::DarkGray);
 
-	// 2 - hp
+	// 2 - killed
+	Renderer::Instance().Submit("Killed:", Vector2<int>(mapSize.x + 2, 2), Color::Gray);
+
+	sprintf_s(buffer_killed, "%d", killed);
+	Renderer::Instance().Submit(buffer_killed, Vector2<int>(mapSize.x + 2 + 8, 2), Color::DarkGreen);
+
+	// 4 - hp
 	const int hp = (player->As<Character>())->GetHealthPoint();
 	for (int i = 0; i < hp; ++i)
 	{
-		buffer_hp[i] = '*';
+		buffer_hp[2 * i] = '*';
+		buffer_hp[2 * i + 1] = ' ';
 	}
-	Renderer::Instance().Submit(buffer_hp, Vector2<int>(mapSize.x + 2, 2), Color::Red);
-
-	// 4 - killed
-	Renderer::Instance().Submit("Killed:", Vector2<int>(mapSize.x + 2, 4), Color::Gray);
-
-	sprintf_s(buffer_killed, "%d", killed);
-	Renderer::Instance().Submit(buffer_killed, Vector2<int>(mapSize.x + 2 + 8, 4), Color::DarkGreen);
+	Renderer::Instance().Submit(buffer_hp, Vector2<int>(mapSize.x + 2, 4), Color::Red);
 
 	// mapSize.y - weapon
 	const int weaponY = mapSize.y - 5;

@@ -26,6 +26,9 @@ public:
 public:
 	void OnKilled();
 
+private:
+	void LoadGround(const char* filename);
+
 public:
 	inline const Vector2<int>& GetMapSize() const { return mapSize; }
 	inline void SetCurrentWeaponIndex(int index) { currentWeaponIndex = index; }
@@ -44,6 +47,9 @@ private:
 
 private:
 	float lastDeltaTime = 0.0f;
+
+private:
+	std::unique_ptr<char[]> backgroundImg;
 
 private:
 	char buffer_hp[256] = {};
