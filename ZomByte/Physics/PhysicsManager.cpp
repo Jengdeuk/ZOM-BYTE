@@ -12,32 +12,7 @@ PhysicsManager& PhysicsManager::Instance()
 
 void PhysicsManager::PhysicsUpdate(const Actors& actors, float deltaTime)
 {
-	ProcessCollsionBulletToZombie(actors, deltaTime);
-
-	//const int size = actors.size();
-	//for (int i = 0; i < size - 1; ++i)
-	//{
-	//	Actor* lhs = actors[i].get();
-	//	const Actor::CollisionFilter& lhsFilter = lhs->GetCollisionFilter();
-	//	for (int j = i + 1; j < size; ++j)
-	//	{
-	//		Actor* rhs = actors[j].get();
-	//		const Actor::CollisionFilter& rhsFilter = rhs->GetCollisionFilter();
-	//
-	//		if ((lhsFilter.mask & rhsFilter.layer) && (rhsFilter.mask & lhsFilter.layer))
-	//		{
-	//			// todo: 양방향 효과 적용
-	//		}
-	//		else if (lhsFilter.mask & rhsFilter.layer) // src: lhs
-	//		{
-	//			SelectCollisionFunction(lhs, rhs);
-	//		}
-	//		else if (rhsFilter.mask & lhsFilter.layer) // src: rhs
-	//		{
-	//			SelectCollisionFunction(rhs, lhs);
-	//		}
-	//	}
-	//}
+	ProcessCollsionBullet(actors, deltaTime);
 }
 
 void PhysicsManager::SelectCollisionFunction(Actor* src, Actor* dst)
@@ -76,7 +51,7 @@ static float Clamp(float t)
 	return t;
 }
 
-void PhysicsManager::ProcessCollsionBulletToZombie(const Actors& actors, float deltaTime)
+void PhysicsManager::ProcessCollsionBullet(const Actors& actors, float deltaTime)
 {
 	std::vector<Bullet*> bullets;
 	std::vector<Zombie*> zombies;
@@ -135,20 +110,87 @@ void PhysicsManager::ProcessCollsionBulletToZombie(const Actors& actors, float d
 	}
 }
 
+void PhysicsManager::ResolvePenetration(const Actors& actors, float deltaTime)
+{
+	const int size = static_cast<int>(actors.size());
+	for (int i = 0; i < size - 1; ++i)
+	{
+		Actor* a = actors[i].get();
+		const Actor::CollisionFilter& aFilter = a->GetCollisionFilter();
+
+		if (a->IsTypeOf<Bullet>())
+		{
+			continue;
+		}
+
+		for (int j = i + 1; j < size; ++j)
+		{
+			Actor* b = actors[j].get();
+			const Actor::CollisionFilter& bFilter = b->GetCollisionFilter();
+
+			if (b->IsTypeOf<Bullet>())
+			{
+				continue;
+			}
+
+			if (!(aFilter.mask & bFilter.layer) || !(bFilter.mask & aFilter.layer))
+			{
+				continue;
+			}
+
+			// 겹친만큼 서로 밀어내기
+			float p = 0.0f;
+			const Vec2f& aPos = a->GetPosition();
+			const Vec2f& bPos = b->GetPosition();
+			if (CheckPenetration(p, aPos, bPos, 0.5f))
+			{
+				const bool isACharacter = a->IsTypeOf<Character>();
+				const bool isBCharacter = b->IsTypeOf<Character>();
+
+				const Vec2f n = bPos - aPos;
+				if (isACharacter && isBCharacter)
+				{
+					a->SetPosition(aPos + n * p * -0.5f);
+					b->SetPosition(bPos + n * p * 0.5f);
+				}
+				else if (isACharacter)
+				{
+					a->SetPosition(aPos + n * p * -1.0f);
+				}
+				else if (isBCharacter)
+				{
+					b->SetPosition(bPos + n * p);
+				}
+			}
+		}
+	}
+}
+
 bool PhysicsManager::CheckBulletHit(float& outT, const Vec2f& prvPos, const Vec2f& curPos, const Vec2f& dstPos, const float dstRadius)
 {
-	Vec2f dv = curPos - prvPos;
-	float lenSq = LengthSq(dv);
+	const Vec2f dv = curPos - prvPos;
+	const float lenSq = LengthSq(dv);
 	if (lenSq < 0.000001f)
 	{
 		return LengthSq(prvPos - dstPos) <= dstRadius * dstRadius;
 	}
 
-	// 선분 위에서 적 중심까지 가장 가까운 지점 찾기
-	float t = Clamp(Dot(dstPos - prvPos, dv) / lenSq);
+	// 선분에 투영
+	outT = Clamp(Dot(dstPos - prvPos, dv) / lenSq);
 
-	Vec2f closestPoint = prvPos + dv * t;
+	// 선분 위에서 적 중심까지 가장 가까운 지점 찾기
+	Vec2f closestPoint = prvPos + dv * outT;
 
 	// 그 지점이 원 내부인지 검사
 	return LengthSq(closestPoint - dstPos) <= dstRadius * dstRadius;
+}
+
+bool PhysicsManager::CheckPenetration(float& outP, const Vec2f& aPos, const Vec2f& bPos, const float colRadius)
+{
+	const float lSq = LengthSq(aPos - bPos);
+	const float rSq = 4 * colRadius * colRadius;
+
+	outP = sqrt(rSq) - sqrt(lSq);
+
+	return lSq <= rSq;
 }

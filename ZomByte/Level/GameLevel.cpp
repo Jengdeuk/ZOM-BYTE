@@ -89,6 +89,8 @@ void GameLevel::PhysicsUpdate(float deltaTime)
 void GameLevel::TransformUpdate(float deltaTime)
 {
 	Super::TransformUpdate(deltaTime);
+
+	PhysicsManager::Instance().ResolvePenetration(Super::GetActors(), deltaTime);
 }
 
 void GameLevel::OnKilled()

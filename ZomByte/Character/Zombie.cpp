@@ -18,7 +18,7 @@ using namespace JD;
 Zombie::Zombie(const InitData& initData, const Status& status)
 	: Super(initData, status)
 {
-	SetCollisionFilter(CollisionFilter{ ZOMBIE, PLAYER });
+	SetCollisionFilter(CollisionFilter{ ZOMBIE, PLAYER | ZOMBIE });
 }
 
 void Zombie::BeginPlay()

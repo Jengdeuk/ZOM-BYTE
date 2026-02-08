@@ -19,7 +19,7 @@ using namespace JD;
 Player::Player(const InitData& initData, const Status& status)
 	: Super(initData, status)
 {
-	SetCollisionFilter(CollisionFilter{ PLAYER, ITEM });
+	SetCollisionFilter(CollisionFilter{ PLAYER, ZOMBIE });
 }
 
 void Player::BeginPlay()

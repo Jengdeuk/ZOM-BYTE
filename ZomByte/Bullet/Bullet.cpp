@@ -28,7 +28,7 @@ Bullet::Bullet(const Actor::InitData& actorInitData, const InitData& initData)
 	lastPosition(actorInitData.position)
 {
 	timer.SetTargetTime(initData.lifeTime);
-	SetCollisionFilter(CollisionFilter{ BULLET, ZOMBIE });
+	SetCollisionFilter(CollisionFilter{ BULLET, 0 });
 }
 
 void Bullet::BeginPlay()

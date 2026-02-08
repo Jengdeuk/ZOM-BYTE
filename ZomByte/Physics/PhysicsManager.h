@@ -23,9 +23,13 @@ public:
 
 private:
 	void SelectCollisionFunction(Actor* src, Actor* dst);
-	void ProcessCollsionBulletToZombie(const Actors& actors, float deltaTime);
+	void ProcessCollsionBullet(const Actors& actors, float deltaTime);
+	
+public:
+	void ResolvePenetration(const Actors& actors, float deltaTime);
 
 private:
 	using Vec2f = Vector2<float>;
 	bool CheckBulletHit(float& outT, const Vec2f& prvPos, const Vec2f& curPos, const Vec2f& dstPos, const float dstRadius);
+	bool CheckPenetration(float& outP, const Vec2f& aPos, const Vec2f& bPos, const float colRadius);
 };
