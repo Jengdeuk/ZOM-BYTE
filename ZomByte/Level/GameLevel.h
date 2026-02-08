@@ -31,6 +31,7 @@ private:
 
 public:
 	inline const Vector2<int>& GetMapSize() const { return mapSize; }
+	inline Player* GetPlayer() const { return player; };
 	inline void SetCurrentWeaponIndex(int index) { currentWeaponIndex = index; }
 
 private:
