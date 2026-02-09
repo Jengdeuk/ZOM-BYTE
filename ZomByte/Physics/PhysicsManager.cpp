@@ -4,36 +4,6 @@
 #include "Character/Player.h"
 #include "Character/Zombie.h"
 
-PhysicsManager& PhysicsManager::Instance()
-{
-	static PhysicsManager instance;
-	return instance;
-}
-
-void PhysicsManager::PhysicsUpdate(const Actors& actors, float deltaTime)
-{
-	ProcessCollsionBullet(actors, deltaTime);
-}
-
-void PhysicsManager::SelectCollisionFunction(Actor* src, Actor* dst)
-{
-	if (src->IsTypeOf<Player>())
-	{
-
-	}
-	else if (src->IsTypeOf<Zombie>())
-	{
-
-	}
-	else if (src->IsTypeOf<Bullet>())
-	{
-		if (dst->IsTypeOf<Zombie>())
-		{
-			//ProcessCollsionBulletToZombie(src, dst);
-		}
-	}
-}
-
 static float Dot(const Vector2<float>& a, const Vector2<float>& b)
 {
 	return a.x * b.x + a.y * b.y;
@@ -49,6 +19,17 @@ static float Clamp(float t)
 	if (t < 0.f) return 0.f;
 	if (t > 1.f) return 1.f;
 	return t;
+}
+
+PhysicsManager& PhysicsManager::Instance()
+{
+	static PhysicsManager instance;
+	return instance;
+}
+
+void PhysicsManager::PhysicsUpdate(const Actors& actors, float deltaTime)
+{
+	ProcessCollsionBullet(actors, deltaTime);
 }
 
 void PhysicsManager::ProcessCollsionBullet(const Actors& actors, float deltaTime)

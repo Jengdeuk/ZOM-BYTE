@@ -18,7 +18,7 @@ using namespace JD;
 Zombie::Zombie(const InitData& initData, const Status& status)
 	: Super(initData, status)
 {
-	SetCollisionFilter(CollisionFilter{ ZOMBIE, PLAYER | ZOMBIE });
+	SetCollisionFilter(CollisionFilter{ ZOMBIE, PLAYER | ZOMBIE | ITEM });
 }
 
 void Zombie::BeginPlay()
@@ -90,7 +90,7 @@ void Zombie::TickChase(float deltaTime)
 	float distance = sqrt(dv.x * dv.x + dv.y * dv.y);
 	if (distance <= 1.0f)
 	{
-		target->OnDamaged(GetAttackRate());
+		target->OnDamaged(GetStatus().attackRate);
 		ChangeState(State::Bite);
 		return;
 	}
@@ -122,7 +122,7 @@ void Zombie::OnDamaged(const int damage)
 
 	ChangeState(State::HitReact);
 
-	if (GetHealthPoint() == 0)
+	if (GetStatus().healthPoint == 0)
 	{
 		(GetOwner()->As<GameLevel>())->OnKilled();
 	}

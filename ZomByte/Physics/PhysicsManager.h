@@ -22,7 +22,6 @@ public:
 	void PhysicsUpdate(const Actors& actors, float deltaTime);
 
 private:
-	void SelectCollisionFunction(Actor* src, Actor* dst);
 	void ProcessCollsionBullet(const Actors& actors, float deltaTime);
 	
 public:

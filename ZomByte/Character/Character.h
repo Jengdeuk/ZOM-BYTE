@@ -34,8 +34,7 @@ public:
 	void AccumulateMove(const Vector2<float>& direction);
 
 public:
-	inline const int GetHealthPoint() const { return status.healthPoint; }
-	inline const int GetAttackRate() const { return status.attackRate; }
+	inline const Status& GetStatus() const { return status; }
 	inline const bool IsDead() const { return isDead; }
 
 private:

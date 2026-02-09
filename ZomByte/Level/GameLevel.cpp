@@ -232,7 +232,6 @@ void GameLevel::DrawHUD()
 	sprintf_s(buffer_level, "%d", level);
 	Renderer::Instance().Submit(buffer_level, Vector2<int>(mapSize.x + 2 + 6, 2), Color::Gray);
 
-
 	// 4 - killed
 	Renderer::Instance().Submit("Killed:", Vector2<int>(mapSize.x + 2, 4), Color::Gray);
 
@@ -240,7 +239,7 @@ void GameLevel::DrawHUD()
 	Renderer::Instance().Submit(buffer_killed, Vector2<int>(mapSize.x + 2 + 8, 4), Color::DarkGreen);
 
 	// 6 - hp
-	const int hp = (player->As<Character>())->GetHealthPoint();
+	const int hp = (player->As<Character>())->GetStatus().healthPoint;
 	for (int i = 0; i < hp; ++i)
 	{
 		buffer_hp[2 * i] = '*';
@@ -251,6 +250,32 @@ void GameLevel::DrawHUD()
 		buffer_hp[2 * hp + i] = ' ';
 	}
 	Renderer::Instance().Submit(buffer_hp, Vector2<int>(mapSize.x + 2, 6), Color::Red);
+
+	// 8 - ar
+	const int ar = (player->As<Character>())->GetStatus().attackRate;
+	for (int i = 0; i < ar; ++i)
+	{
+		buffer_ar[2 * i] = '*';
+		buffer_ar[2 * i + 1] = ' ';
+	}
+	for (int i = 0; i < 10; ++i)
+	{
+		buffer_ar[2 * ar + i] = ' ';
+	}
+	Renderer::Instance().Submit(buffer_ar, Vector2<int>(mapSize.x + 2, 8), Color::Yellow);
+
+	// 10 - ms
+	const int ms = static_cast<int>((player->As<Character>())->GetStatus().moveSpeed);
+	for (int i = 0; i < ms; ++i)
+	{
+		buffer_ms[2 * i] = '*';
+		buffer_ms[2 * i + 1] = ' ';
+	}
+	for (int i = 0; i < 10; ++i)
+	{
+		buffer_ms[2 * ms + i] = ' ';
+	}
+	Renderer::Instance().Submit(buffer_ms, Vector2<int>(mapSize.x + 2, 10), Color::Cyan);
 
 	// mapSize.y - weapon
 	const int weaponY = mapSize.y - 5;
