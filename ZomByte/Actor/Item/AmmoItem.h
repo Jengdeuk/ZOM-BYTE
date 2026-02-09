@@ -12,6 +12,7 @@ class AmmoItem : public Item
 		Uzi,
 		Shotgun,
 		Barrel,
+		Railgun,
 		Count
 	};
 

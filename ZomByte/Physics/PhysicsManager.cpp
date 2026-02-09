@@ -4,6 +4,7 @@
 #include "Actor/Character/Zombie.h"
 #include "Actor/Projectile/Bullet.h"
 #include "Actor/Projectile/PlacedBarrel.h"
+#include "Actor/Effect/Railslug.h"
 #include "Actor/Effect/ExplosionEffect.h"
 #include "Actor/Item/Item.h"
 
@@ -33,6 +34,7 @@ PhysicsManager& PhysicsManager::Instance()
 void PhysicsManager::PhysicsUpdate(const Actors& actors, float deltaTime)
 {
 	ProcessCollisionBullet(actors, deltaTime);
+	ProcessCollisionRailslug(actors, deltaTime);
 	ProcessCollisionExplosionEffect(actors, deltaTime);
 	ProcessCollisionItem(actors, deltaTime);
 }
@@ -110,6 +112,50 @@ void PhysicsManager::ProcessCollisionBullet(const Actors& actors, float deltaTim
 	}
 }
 
+void PhysicsManager::ProcessCollisionRailslug(const Actors& actors, float deltaTime)
+{
+	std::vector<Railslug*> effects;
+	std::vector<Actor*> others;
+
+	for (auto& actor : actors)
+	{
+		if (actor->IsTypeOf<Railslug>())
+		{
+			effects.emplace_back(actor.get()->As<Railslug>());
+		}
+		else if (actor->IsTypeOf<Zombie>() || actor->IsTypeOf<PlacedBarrel>())
+		{
+			others.emplace_back(actor.get());
+		}
+	}
+
+	float p = 0.0f;
+	for (auto& effect : effects)
+	{
+		for (auto& other : others)
+		{
+			const Vec2f& ePos = effect->GetPosition();
+			const Vec2f& oPos = other->GetPosition();
+			if (CheckPenetration(p, ePos, oPos, 1.0f))
+			{
+				if (other->IsTypeOf<Character>())
+				{
+					Character* character = other->As<Character>();
+					const Vec2f& knockBackDir = (oPos - ePos).Normalized();
+					const float force = 1.5f * static_cast<float>(effect->GetWeaponInitDamage());
+					character->AccumulateForce(knockBackDir * force);
+					character->OnDamaged(effect->GetDamage());
+				}
+				else if (other->IsTypeOf<PlacedBarrel>())
+				{
+					PlacedBarrel* barrel = other->As<PlacedBarrel>();
+					barrel->Explosion();
+				}
+			}
+		}
+	}
+}
+
 void PhysicsManager::ProcessCollisionExplosionEffect(const Actors& actors, float deltaTime)
 {
 	std::vector<ExplosionEffect*> effects;
@@ -134,7 +180,7 @@ void PhysicsManager::ProcessCollisionExplosionEffect(const Actors& actors, float
 		{
 			const Vec2f& ePos = effect->GetPosition();
 			const Vec2f& oPos = other->GetPosition();
-			if (CheckPenetration(p, ePos, oPos, 0.5f))
+			if (CheckPenetration(p, ePos, oPos, 1.0f))
 			{
 				if (other->IsTypeOf<Character>())
 				{

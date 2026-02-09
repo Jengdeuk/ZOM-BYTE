@@ -101,7 +101,9 @@
     <ClCompile Include="Actor\Item\StatusItem.cpp" />
     <ClCompile Include="Actor\Item\AmmoItem.cpp" />
     <ClCompile Include="Actor\Projectile\PlacedBarrel.cpp" />
+    <ClCompile Include="Actor\Effect\Railslug.cpp" />
     <ClCompile Include="Actor\Weapon\Barrel.cpp" />
+    <ClCompile Include="Actor\Weapon\Railgun.cpp" />
     <ClCompile Include="Game\Game.cpp" />
     <ClCompile Include="Level\GameLevel.cpp" />
     <ClCompile Include="Level\MenuLevel.cpp" />
@@ -124,7 +126,9 @@
     <ClInclude Include="Actor\Item\StatusItem.h" />
     <ClInclude Include="Actor\Item\AmmoItem.h" />
     <ClInclude Include="Actor\Projectile\PlacedBarrel.h" />
+    <ClInclude Include="Actor\Effect\Railslug.h" />
     <ClInclude Include="Actor\Weapon\Barrel.h" />
+    <ClInclude Include="Actor\Weapon\Railgun.h" />
     <ClInclude Include="Game\Game.h" />
     <ClInclude Include="Level\GameLevel.h" />
     <ClInclude Include="Level\MenuLevel.h" />

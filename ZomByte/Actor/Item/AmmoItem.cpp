@@ -2,12 +2,13 @@
 
 #include "Actor/Character/Player.h"
 
-static const Actor::InitData ammoItemInitData[4] =
+static const Actor::InitData ammoItemInitData[] =
 {
 	{ "p", Vector2<float>(), Color::White, 9 },
 	{ "u", Vector2<float>(), Color::Yellow, 9 },
 	{ "s", Vector2<float>(), Color::White, 9 },
-	{ "b", Vector2<float>(), Color::Magenta, 9 }
+	{ "b", Vector2<float>(), Color::Magenta, 9 },
+	{ "r", Vector2<float>(), Color::Cyan, 9 }
 };
 
 AmmoItem::AmmoItem(InitData initData)
@@ -24,6 +25,7 @@ void AmmoItem::ApplyEffect(Character* target)
 	case WeaponType::Uzi:
 	case WeaponType::Shotgun:
 	case WeaponType::Barrel:
+	case WeaponType::Railgun:
 		(target->As<Player>())->RefillAmmo(static_cast<int>(data.type), data.amount);
 		break;
 	default:
@@ -42,6 +44,7 @@ const Actor::InitData& AmmoItem::GetActorInitData(const WeaponType type, Vector2
 	case WeaponType::Uzi:
 	case WeaponType::Shotgun:
 	case WeaponType::Barrel:
+	case WeaponType::Railgun:
 		rv = ammoItemInitData[static_cast<int>(type)];
 		break;
 	default:

@@ -65,25 +65,30 @@ void BloodEffect::SpawnItem()
 		initData.spawnPos = GetPosition();
 
 		float rvStat = Util::Randomf(0.0f, 1.0f);
-		if (rvStat < 0.25f)
+		if (rvStat < 0.2f)
 		{
 			initData.type = AmmoItem::WeaponType::Pistol;
 			initData.amount = 18;
 		}
-		else if (rvStat < 0.5f)
+		else if (rvStat < 0.4f)
 		{
 			initData.type = AmmoItem::WeaponType::Uzi;
 			initData.amount = 35;
 		}
-		else if (rvStat < 0.75f)
+		else if (rvStat < 0.6f)
 		{
 			initData.type = AmmoItem::WeaponType::Shotgun;
 			initData.amount = 8;
 		}
-		else
+		else if (rvStat < 0.8f)
 		{
 			initData.type = AmmoItem::WeaponType::Barrel;
 			initData.amount = 3;
+		}
+		else
+		{
+			initData.type = AmmoItem::WeaponType::Railgun;
+			initData.amount = 6;
 		}
 
 		std::unique_ptr<AmmoItem> newItem = std::make_unique<AmmoItem>(initData);

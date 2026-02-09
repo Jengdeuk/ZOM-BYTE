@@ -12,6 +12,7 @@
 #include "Actor/Weapon/Uzi.h"
 #include "Actor/Weapon/Shotgun.h"
 #include "Actor/Weapon/Barrel.h"
+#include "Actor/Weapon/Railgun.h"
 
 #include <memory>
 
@@ -98,6 +99,16 @@ void Player::TakeWeapons()
 	initData.clip = 1;
 
 	newWeapon = std::make_unique<Barrel>(initData);
+	weapons.emplace_back(newWeapon.get());
+	GetOwner()->AddNewActor(std::move(newWeapon));
+
+	// 5. Railgun
+	initData.reloadTime = 0.8f;
+	initData.attackRate = 5;
+	initData.magazine = 0;
+	initData.clip = 1;
+
+	newWeapon = std::make_unique<Railgun>(initData);
 	weapons.emplace_back(newWeapon.get());
 	GetOwner()->AddNewActor(std::move(newWeapon));
 

@@ -314,6 +314,8 @@ void GameLevel::DrawHUD()
 
 	Renderer::Instance().Submit("<5>  ailgun: ", Vector2<int>(mapSize.x + 2, weaponY + 4), weaponTextColor[4]);
 	Renderer::Instance().Submit("r", Vector2<int>(mapSize.x + 2 + 4, weaponY + 4), Color::Cyan);
+	sprintf_s(buffer_ammo[4], "%d", weapons[4]->GetMagazine());
+	Renderer::Instance().Submit(buffer_ammo[4], Vector2<int>(mapSize.x + 2 + ammoX, weaponY + 4), weaponTextColor[4]);
 
 	if (player->IsDead())
 	{
