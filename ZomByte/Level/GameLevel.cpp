@@ -49,7 +49,7 @@ GameLevel::GameLevel(const Vector2<int>& mapSize)
 	initData.sortingOrder = 10;
 
 	Character::Status status;
-	status.healthPoint = 5;
+	status.healthPoint = 50;
 	status.attackRate = 1;
 	status.moveSpeed = 6;
 

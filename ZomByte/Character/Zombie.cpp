@@ -65,8 +65,8 @@ void Zombie::ChangeState(const State newState)
 		break;
 	case State::Bite:
 		currentState = State::Bite;
-		SetImage("X");
-		timer.SetTargetTime(1.5f);
+		SetImage("O");
+		timer.SetTargetTime(0.5f);
 		break;
 	case State::HitReact:
 		currentState = State::HitReact;
@@ -91,6 +91,11 @@ void Zombie::TickChase(float deltaTime)
 	if (distance <= 1.0f)
 	{
 		target->OnDamaged(GetStatus().attackRate);
+
+		const Vector2<float> knockBackDir{ (target->GetPosition() - GetPosition()).Normalized() };
+		const float force = 30.0f * static_cast<float>(GetStatus().attackRate);
+		target->AccumulateForce(knockBackDir * force);
+
 		ChangeState(State::Bite);
 		return;
 	}
