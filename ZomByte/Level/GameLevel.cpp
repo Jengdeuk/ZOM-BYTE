@@ -13,9 +13,22 @@
 
 using namespace JD;
 
+static Actor::InitData spawnData{ "Z", Vector2<int>(), Color::DarkGreen, 9 };
+static Character::Status minStat{ 1, 1, 1 };
+static Character::Status maxStat{ 1, 1, 2 };
+
 GameLevel::GameLevel(const Vector2<int>& mapSize)
-	: mapSize(mapSize)
+	: mapSize(mapSize),
+	level(1),
+	regenTime(5.0f),
+	regenCount(3)
 {
+	levelUpTimer.Reset();
+	levelUpTimer.SetTargetTime(30.0f);
+
+	regenTimer.Reset();
+	regenTimer.SetTargetTime(regenTime);
+
 	LoadGround("ground.txt");
 
 	Actor::InitData initData;
@@ -44,23 +57,7 @@ GameLevel::GameLevel(const Vector2<int>& mapSize)
 	player = newPlayer.get();
 	AddNewActor(std::move(newPlayer));
 
-	// Zombie
-	initData.image = "Z";
-	initData.color = Color::DarkGreen;
-	initData.sortingOrder = 9;
-
-	status.healthPoint = 3;
-	status.attackRate = 1;
-	status.moveSpeed = 3;
-
-	for (int i = 0; i < 30; ++i)
-	{
-		const int summonX = Util::Random(-mapSize.x / 2, mapSize.x / 2);
-		const int summonY = Util::Random(-mapSize.y / 2, mapSize.y / 2);
-		initData.position = Vector2<int>(summonX, summonY);
-		std::unique_ptr<Zombie> newZombie = std::make_unique<Zombie>(initData, status);
-		AddNewActor(std::move(newZombie));
-	}
+	Regen();
 }
 
 void GameLevel::Tick(float deltaTime)
@@ -69,6 +66,18 @@ void GameLevel::Tick(float deltaTime)
 
 	PhysicsUpdate(deltaTime);
 	TransformUpdate(deltaTime);
+
+	levelUpTimer.Tick(deltaTime);
+	if (levelUpTimer.IsTimeOut())
+	{
+		LevelUp();
+	}
+
+	regenTimer.Tick(deltaTime);
+	if (regenTimer.IsTimeOut())
+	{
+		Regen();
+	}
 
 	survivalTime += deltaTime;
 	lastDeltaTime = deltaTime;
@@ -96,6 +105,92 @@ void GameLevel::TransformUpdate(float deltaTime)
 void GameLevel::OnKilled()
 {
 	++killed;
+}
+
+void GameLevel::LevelUp()
+{
+	levelUpTimer.Reset();
+
+	++level;
+	regenTime -= static_cast<int>(round(regenTime * 0.2f));
+	regenCount += static_cast<int>(round(regenCount * 0.2f));
+
+	maxStat.healthPoint += static_cast<int>(round(maxStat.healthPoint * 0.2f));
+	maxStat.moveSpeed += static_cast<int>(round(maxStat.moveSpeed * 0.2f));
+
+	++minStat.attackRate;
+	++maxStat.attackRate;
+}
+
+void GameLevel::Regen()
+{
+	regenTimer.Reset();
+
+	const Vector2<int> targetPos{ player->GetPosition() };
+	const Vector2<int> halfMapSize{ mapSize.x / 2 + 3, mapSize.y / 2 + 3 };
+
+	Character::Status status;
+	Actor::InitData initData{ spawnData };
+
+	// Left
+	for (int i = 0; i < regenCount; ++i)
+	{
+		status.healthPoint = static_cast<int>(Util::Random(minStat.healthPoint, maxStat.healthPoint));
+		status.attackRate = minStat.attackRate;
+		status.moveSpeed = Util::Randomf(minStat.moveSpeed, maxStat.moveSpeed);
+
+		const int summonX = targetPos.x - halfMapSize.x;
+		const int summonY = Util::Random(targetPos.y - halfMapSize.y, targetPos.y + halfMapSize.y);
+		initData.position = Vector2<int>(summonX, summonY);
+
+		std::unique_ptr<Zombie> newZombie = std::make_unique<Zombie>(initData, status);
+		AddNewActor(std::move(newZombie));
+	}
+
+	// Top
+	for (int i = 0; i < regenCount; ++i)
+	{
+		status.healthPoint = static_cast<int>(Util::Random(minStat.healthPoint, maxStat.healthPoint));
+		status.attackRate = minStat.attackRate;
+		status.moveSpeed = Util::Randomf(minStat.moveSpeed, maxStat.moveSpeed);
+
+		const int summonX = Util::Random(targetPos.x - halfMapSize.x, targetPos.x + halfMapSize.x);
+		const int summonY = targetPos.y + halfMapSize.y;
+		initData.position = Vector2<int>(summonX, summonY);
+
+		std::unique_ptr<Zombie> newZombie = std::make_unique<Zombie>(initData, status);
+		AddNewActor(std::move(newZombie));
+	}
+
+	// Right
+	for (int i = 0; i < regenCount; ++i)
+	{
+		status.healthPoint = static_cast<int>(Util::Random(minStat.healthPoint, maxStat.healthPoint));
+		status.attackRate = minStat.attackRate;
+		status.moveSpeed = Util::Randomf(minStat.moveSpeed, maxStat.moveSpeed);
+
+		const int summonX = targetPos.x + halfMapSize.x;
+		const int summonY = Util::Random(targetPos.y - halfMapSize.y, targetPos.y + halfMapSize.y);
+		initData.position = Vector2<int>(summonX, summonY);
+
+		std::unique_ptr<Zombie> newZombie = std::make_unique<Zombie>(initData, status);
+		AddNewActor(std::move(newZombie));
+	}
+
+	// Bottom
+	for (int i = 0; i < regenCount; ++i)
+	{
+		status.healthPoint = static_cast<int>(Util::Random(minStat.healthPoint, maxStat.healthPoint));
+		status.attackRate = minStat.attackRate;
+		status.moveSpeed = Util::Randomf(minStat.moveSpeed, maxStat.moveSpeed);
+
+		const int summonX = Util::Random(targetPos.x - halfMapSize.x, targetPos.x + halfMapSize.x);
+		const int summonY = targetPos.y - halfMapSize.y;
+		initData.position = Vector2<int>(summonX, summonY);
+
+		std::unique_ptr<Zombie> newZombie = std::make_unique<Zombie>(initData, status);
+		AddNewActor(std::move(newZombie));
+	}
 }
 
 void GameLevel::LoadGround(const char* filename)
@@ -131,20 +226,31 @@ void GameLevel::DrawHUD()
 	sprintf_s(buffer_fps, "FPS:%d", static_cast<int>(1.0f / lastDeltaTime));
 	Renderer::Instance().Submit(buffer_fps, Vector2<int>(Engine::Instance().GetScreenSize().x - 7, 0), Color::DarkGray);
 
-	// 2 - killed
-	Renderer::Instance().Submit("Killed:", Vector2<int>(mapSize.x + 2, 2), Color::Gray);
+	// 2 - level
+	Renderer::Instance().Submit("Level ", Vector2<int>(mapSize.x + 2, 2), Color::Gray);
+
+	sprintf_s(buffer_level, "%d", level);
+	Renderer::Instance().Submit(buffer_level, Vector2<int>(mapSize.x + 2 + 6, 2), Color::Gray);
+
+
+	// 4 - killed
+	Renderer::Instance().Submit("Killed:", Vector2<int>(mapSize.x + 2, 4), Color::Gray);
 
 	sprintf_s(buffer_killed, "%d", killed);
-	Renderer::Instance().Submit(buffer_killed, Vector2<int>(mapSize.x + 2 + 8, 2), Color::DarkGreen);
+	Renderer::Instance().Submit(buffer_killed, Vector2<int>(mapSize.x + 2 + 8, 4), Color::DarkGreen);
 
-	// 4 - hp
+	// 6 - hp
 	const int hp = (player->As<Character>())->GetHealthPoint();
 	for (int i = 0; i < hp; ++i)
 	{
 		buffer_hp[2 * i] = '*';
 		buffer_hp[2 * i + 1] = ' ';
 	}
-	Renderer::Instance().Submit(buffer_hp, Vector2<int>(mapSize.x + 2, 4), Color::Red);
+	for (int i = 0; i < 10; ++i)
+	{
+		buffer_hp[2 * hp + i] = ' ';
+	}
+	Renderer::Instance().Submit(buffer_hp, Vector2<int>(mapSize.x + 2, 6), Color::Red);
 
 	// mapSize.y - weapon
 	const int weaponY = mapSize.y - 5;

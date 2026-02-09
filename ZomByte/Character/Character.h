@@ -35,6 +35,7 @@ public:
 
 public:
 	inline const int GetHealthPoint() const { return status.healthPoint; }
+	inline const int GetAttackRate() const { return status.attackRate; }
 	inline const bool IsDead() const { return isDead; }
 
 private:

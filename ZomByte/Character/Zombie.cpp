@@ -60,13 +60,16 @@ void Zombie::ChangeState(const State newState)
 	switch (newState)
 	{
 	case State::Chase:
+		currentState = State::Chase;
 		SetImage("Z");
 		break;
 	case State::Bite:
+		currentState = State::Bite;
 		SetImage("X");
-		timer.SetTargetTime(1.0f);
+		timer.SetTargetTime(1.5f);
 		break;
 	case State::HitReact:
+		currentState = State::HitReact;
 		SetImage("Z");
 		timer.SetTargetTime(0.5f);
 		break;
@@ -82,9 +85,17 @@ void Zombie::TickChase(float deltaTime)
 		return;
 	}
 
-	Vector2<float> direction = target->GetPosition() - GetPosition();
-	direction.Normalized();
-	AccumulateMove(direction);
+	Vector2<float> dv = target->GetPosition() - GetPosition();
+
+	float distance = sqrt(dv.x * dv.x + dv.y * dv.y);
+	if (distance <= 1.0f)
+	{
+		target->OnDamaged(GetAttackRate());
+		ChangeState(State::Bite);
+		return;
+	}
+
+	AccumulateMove(dv.Normalized());
 }
 
 void Zombie::TickBite(float deltaTime)
@@ -108,6 +119,8 @@ void Zombie::TickHitReact(float deltaTime)
 void Zombie::OnDamaged(const int damage)
 {
 	Super::OnDamaged(damage);
+
+	ChangeState(State::HitReact);
 
 	if (GetHealthPoint() == 0)
 	{

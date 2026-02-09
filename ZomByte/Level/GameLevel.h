@@ -3,6 +3,7 @@
 #include "Level/Level.h"
 
 #include "Math/Vector2.h"
+#include "Util/Timer.h"
 
 using namespace JD;
 
@@ -27,6 +28,10 @@ public:
 	void OnKilled();
 
 private:
+	void LevelUp();
+	void Regen();
+
+private:
 	void LoadGround(const char* filename);
 
 public:
@@ -47,6 +52,13 @@ private:
 	int currentWeaponIndex = 0;
 
 private:
+	int level = 0;
+	Timer levelUpTimer;
+	float regenTime = 0.0f;
+	int regenCount = 0;
+	Timer regenTimer;
+
+private:
 	float lastDeltaTime = 0.0f;
 
 private:
@@ -54,6 +66,7 @@ private:
 
 private:
 	char buffer_hp[256] = {};
+	char buffer_level[256] = {};
 	char buffer_killed[256] = {};
 	char buffer_stime[256] = {};
 	char buffer_fps[256] = {};
