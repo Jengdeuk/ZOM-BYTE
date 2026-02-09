@@ -38,7 +38,7 @@ public:
 
 private:
 	int currentIndex = 0;
-	Color selectedColor = Color::Green;
-	Color unselectedColor = Color::White;
+	Color selectedColor = Color::Yellow;
+	Color unselectedColor = Color::Gray;
 	std::vector<std::unique_ptr<MenuItem>> items;
 };

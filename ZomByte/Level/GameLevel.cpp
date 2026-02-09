@@ -1,8 +1,11 @@
 #include "GameLevel.h"
 
 #include "Engine/Engine.h"
+#include "Core/Input.h"
 #include "Render/Renderer.h"
 #include "Physics/PhysicsManager.h"
+
+#include "Game/Game.h"
 
 #include "Actor/Character/Player.h"
 #include "Actor/Character/Zombie.h"
@@ -31,20 +34,8 @@ GameLevel::GameLevel(const Vector2<int>& mapSize)
 	regenTimer.Reset();
 	regenTimer.SetTargetTime(regenTime);
 
-	LoadGround("ground.txt");
-
+	// Spawn Player
 	Actor::InitData initData;
-
-	// Background
-	//initData.image = backgroundImg.get();
-	//initData.color = Color::DarkGray;
-	//initData.position = Vector2<int>(0, 0);
-	//initData.sortingOrder = 0;
-	//
-	//std::unique_ptr<Actor> newActor = std::make_unique<Actor>(initData);
-	//AddNewActor(std::move(newActor));
-
-	// Player
 	initData.image = "P";
 	initData.color = Color::DarkYellow;
 	initData.position = Vector2<float>(0.0f, 0.0f);
@@ -64,6 +55,17 @@ GameLevel::GameLevel(const Vector2<int>& mapSize)
 
 void GameLevel::Tick(float deltaTime)
 {
+	if (Input::Instance().GetKeyDown(VK_ESCAPE))
+	{
+		Game::Instance().ToggleMenu();
+		return;
+	}
+
+	if (player->IsDead())
+	{
+		return;
+	}
+
 	Super::Tick(deltaTime);
 
 	PhysicsUpdate(deltaTime);
@@ -90,6 +92,10 @@ void GameLevel::Draw()
 	Super::Draw();
 
 	DrawHUD();
+}
+
+void GameLevel::TickGameOver(float deltaTime)
+{
 }
 
 void GameLevel::PhysicsUpdate(float deltaTime)
@@ -304,16 +310,20 @@ void GameLevel::DrawHUD()
 	sprintf_s(buffer_ammo[1], "%d", weapons[1]->GetMagazine());
 	Renderer::Instance().Submit(buffer_ammo[1], Vector2<int>(mapSize.x + 2 + 9, weaponY + 1), weaponTextColor[1]);
 
-
 	Renderer::Instance().Submit("<3>  hotgun: ", Vector2<int>(mapSize.x + 2, weaponY + 2), weaponTextColor[2]);
 	Renderer::Instance().Submit("s", Vector2<int>(mapSize.x + 2 + 4, weaponY + 2), Color::White);
 	sprintf_s(buffer_ammo[2], "%d", weapons[2]->GetMagazine());
 	Renderer::Instance().Submit(buffer_ammo[2], Vector2<int>(mapSize.x + 2 + 13, weaponY + 2), weaponTextColor[2]);
-
 
 	Renderer::Instance().Submit("<4>  arrel: ", Vector2<int>(mapSize.x + 2, weaponY + 3), weaponTextColor[3]);
 	Renderer::Instance().Submit("b", Vector2<int>(mapSize.x + 2 + 4, weaponY + 3), Color::Magenta);
 
 	Renderer::Instance().Submit("<5>  ailgun: ", Vector2<int>(mapSize.x + 2, weaponY + 4), weaponTextColor[4]);
 	Renderer::Instance().Submit("r", Vector2<int>(mapSize.x + 2 + 4, weaponY + 4), Color::Cyan);
+
+	if (player->IsDead())
+	{
+		const Vector2<int> screenSize = Engine::Instance().GetScreenSize();
+		Renderer::Instance().Submit("Game Over!", Vector2<int>(screenSize.x / 2 - 4, screenSize.y / 2), Color::Red, 20);
+	}
 }

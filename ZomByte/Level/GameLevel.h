@@ -21,6 +21,9 @@ public:
 	virtual void Draw() override;
 
 public:
+	void TickGameOver(float deltaTime);
+
+public:
 	void PhysicsUpdate(float deltaTime);
 	void TransformUpdate(float deltaTime);
 

@@ -33,12 +33,6 @@ void Player::Tick(float deltaTime)
 {
 	Super::Tick(deltaTime);
 
-	if (Input::Instance().GetKeyDown(VK_ESCAPE))
-	{
-		Game::Instance().ToggleMenu();
-		return;
-	}
-
 	MovementInput(deltaTime);
 	ChangeWeaponInput();
 	UseWeaponInput();

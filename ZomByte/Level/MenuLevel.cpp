@@ -1,5 +1,7 @@
 #include "MenuLevel.h"
 
+#include "Engine/Engine.h"
+
 #include "Core/Input.h"
 #include "Render/Renderer.h"
 
@@ -62,11 +64,19 @@ void MenuLevel::Tick(float deltaTime)
 
 void MenuLevel::Draw()
 {
-	Renderer::Instance().Submit("ZOM-BYTE", Vector2<int>(0, 0));
+	const Vector2<int> screenSize = Engine::Instance().GetScreenSize();
+	Renderer::Instance().Submit("ZOM-BYTE", Vector2<int>(screenSize.x / 2 - 4, screenSize.y / 2 - 1), Color::Green);
 
 	for (int i = 0; i < static_cast<int>(items.size()); ++i)
 	{
 		Color textColor = (i == currentIndex ? selectedColor : unselectedColor);
-		Renderer::Instance().Submit(items[i]->text.get(), Vector2<int>(0, 2 + i), textColor);
+		Renderer::Instance().Submit(
+			items[i]->text.get(),
+			Vector2<int>(
+				screenSize.x / 2 - static_cast<int>(strlen(items[i]->text.get())) / 2,
+				screenSize.y / 2 + 1 + i
+			),
+			textColor
+		);
 	}
 }

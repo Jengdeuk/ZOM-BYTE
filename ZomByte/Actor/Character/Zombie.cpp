@@ -91,6 +91,10 @@ void Zombie::TickChase(float deltaTime)
 	if (distance <= 1.0f)
 	{
 		target->OnDamaged(GetStatus().attackRate);
+		if (target->IsDead())
+		{
+			target->SetImage("#");
+		}
 
 		const Vector2<float> knockBackDir{ (target->GetPosition() - GetPosition()).Normalized() };
 		target->AccumulateForce(knockBackDir * 15.0f);
