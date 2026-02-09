@@ -19,6 +19,9 @@ public:
 	virtual void BeginPlay() override;
 	virtual void Tick(float deltaTime) override;
 
+private:
+	virtual void OnDamaged(const int damage) override;
+
 public:
 	void RefillAmmo(const int weaponIdx, const int amount);
 	const std::vector<Weapon*>& GetWeapons() const { return weapons; }

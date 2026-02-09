@@ -39,7 +39,7 @@
     <ClCompile Include="Actor\Weapon\Pistol.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Actor\Bullet\Bullet.cpp">
+    <ClCompile Include="Actor\Projectile\Bullet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Actor\Weapon\Uzi.cpp">
@@ -69,6 +69,15 @@
     <ClCompile Include="Actor\Item\StatusItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Actor\Weapon\Barrel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor\Projectile\PlacedBarrel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor\Effect\ExplosionEffect.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Game.h">
@@ -92,7 +101,7 @@
     <ClInclude Include="Actor\Weapon\Pistol.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Actor\Bullet\Bullet.h">
+    <ClInclude Include="Actor\Projectile\Bullet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Actor\Weapon\Uzi.h">
@@ -123,6 +132,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Actor\Item\StatusItem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor\Weapon\Barrel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor\Projectile\PlacedBarrel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor\Effect\ExplosionEffect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

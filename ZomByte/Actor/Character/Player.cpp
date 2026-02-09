@@ -11,6 +11,7 @@
 #include "Actor/Weapon/Pistol.h"
 #include "Actor/Weapon/Uzi.h"
 #include "Actor/Weapon/Shotgun.h"
+#include "Actor/Weapon/Barrel.h"
 
 #include <memory>
 
@@ -19,7 +20,7 @@ using namespace JD;
 Player::Player(const InitData& initData, const Status& status)
 	: Super(initData, status)
 {
-	SetCollisionFilter(CollisionFilter{ PLAYER, ZOMBIE });
+	SetCollisionFilter(CollisionFilter{ PLAYER, ZOMBIE | WALL });
 }
 
 void Player::BeginPlay()
@@ -36,6 +37,16 @@ void Player::Tick(float deltaTime)
 	MovementInput(deltaTime);
 	ChangeWeaponInput();
 	UseWeaponInput();
+}
+
+void Player::OnDamaged(const int damage)
+{
+	Super::OnDamaged(damage);
+
+	if (IsDead())
+	{
+		SetImage("#");
+	}
 }
 
 void Player::RefillAmmo(const int weaponIdx, const int amount)
@@ -77,6 +88,16 @@ void Player::TakeWeapons()
 	initData.clip = 3;
 
 	newWeapon = std::make_unique<Shotgun>(initData);
+	weapons.emplace_back(newWeapon.get());
+	GetOwner()->AddNewActor(std::move(newWeapon));
+
+	// 4. Barrel
+	initData.reloadTime = 0.5f;
+	initData.attackRate = 5;
+	initData.magazine = 0;
+	initData.clip = 1;
+
+	newWeapon = std::make_unique<Barrel>(initData);
 	weapons.emplace_back(newWeapon.get());
 	GetOwner()->AddNewActor(std::move(newWeapon));
 

@@ -39,7 +39,7 @@ GameLevel::GameLevel(const Vector2<int>& mapSize)
 	initData.image = "P";
 	initData.color = Color::DarkYellow;
 	initData.position = Vector2<float>(0.0f, 0.0f);
-	initData.sortingOrder = 10;
+	initData.sortingOrder = 15;
 
 	Character::Status status;
 	status.healthPoint = 3;
@@ -255,7 +255,7 @@ void GameLevel::DrawHUD()
 		buffer_hp[2 * i] = '*';
 		buffer_hp[2 * i + 1] = ' ';
 	}
-	buffer_hp[hp] = '\0';
+	buffer_hp[2 * hp] = '\0';
 	Renderer::Instance().Submit(buffer_hp, Vector2<int>(mapSize.x + 2, 6), Color::Red);
 
 	// 8 - ar
@@ -265,7 +265,7 @@ void GameLevel::DrawHUD()
 		buffer_ar[2 * i] = '*';
 		buffer_ar[2 * i + 1] = ' ';
 	}
-	buffer_ar[ar] = '\0';
+	buffer_ar[2 * ar] = '\0';
 	Renderer::Instance().Submit(buffer_ar, Vector2<int>(mapSize.x + 2, 8), Color::Yellow);
 
 	// 10 - ms
@@ -275,7 +275,7 @@ void GameLevel::DrawHUD()
 		buffer_ms[2 * i] = '*';
 		buffer_ms[2 * i + 1] = ' ';
 	}
-	buffer_ms[ms] = '\0';
+	buffer_ms[2 * ms] = '\0';
 	Renderer::Instance().Submit(buffer_ms, Vector2<int>(mapSize.x + 2, 10), Color::Cyan);
 
 	// mapSize.y - weapon
@@ -286,28 +286,31 @@ void GameLevel::DrawHUD()
 	}
 
 	const int weaponY = /*mapSize.y - 5*/16;
+	const int ammoX = 13;
 	Renderer::Instance().Submit("*", Vector2<int>(mapSize.x, weaponY + currentWeaponIndex), Color::Gray);
 	
 	Color weaponTextColor[5]{ Color::DarkGray, Color::DarkGray, Color::DarkGray, Color::DarkGray, Color::DarkGray };
 	weaponTextColor[currentWeaponIndex] = Color::Gray;
 
-	Renderer::Instance().Submit("<1>  istol: ", Vector2<int>(mapSize.x + 2, weaponY), weaponTextColor[0]);
+	Renderer::Instance().Submit("<1>  istol : ", Vector2<int>(mapSize.x + 2, weaponY), weaponTextColor[0]);
 	Renderer::Instance().Submit("p", Vector2<int>(mapSize.x + 2 + 4, weaponY), Color::White);
 	sprintf_s(buffer_ammo[0], "%d", weapons[0]->GetMagazine());
-	Renderer::Instance().Submit(buffer_ammo[0], Vector2<int>(mapSize.x + 2 + 12, weaponY), weaponTextColor[0]);
+	Renderer::Instance().Submit(buffer_ammo[0], Vector2<int>(mapSize.x + 2 + ammoX, weaponY), weaponTextColor[0]);
 
-	Renderer::Instance().Submit("<2>  zi: ", Vector2<int>(mapSize.x + 2, weaponY + 1), weaponTextColor[1]);
+	Renderer::Instance().Submit("<2>  zi    : ", Vector2<int>(mapSize.x + 2, weaponY + 1), weaponTextColor[1]);
 	Renderer::Instance().Submit("u", Vector2<int>(mapSize.x + 2 + 4, weaponY + 1), Color::Yellow);
 	sprintf_s(buffer_ammo[1], "%d", weapons[1]->GetMagazine());
-	Renderer::Instance().Submit(buffer_ammo[1], Vector2<int>(mapSize.x + 2 + 9, weaponY + 1), weaponTextColor[1]);
+	Renderer::Instance().Submit(buffer_ammo[1], Vector2<int>(mapSize.x + 2 + ammoX, weaponY + 1), weaponTextColor[1]);
 
 	Renderer::Instance().Submit("<3>  hotgun: ", Vector2<int>(mapSize.x + 2, weaponY + 2), weaponTextColor[2]);
 	Renderer::Instance().Submit("s", Vector2<int>(mapSize.x + 2 + 4, weaponY + 2), Color::White);
 	sprintf_s(buffer_ammo[2], "%d", weapons[2]->GetMagazine());
-	Renderer::Instance().Submit(buffer_ammo[2], Vector2<int>(mapSize.x + 2 + 13, weaponY + 2), weaponTextColor[2]);
+	Renderer::Instance().Submit(buffer_ammo[2], Vector2<int>(mapSize.x + 2 + ammoX, weaponY + 2), weaponTextColor[2]);
 
-	Renderer::Instance().Submit("<4>  arrel: ", Vector2<int>(mapSize.x + 2, weaponY + 3), weaponTextColor[3]);
+	Renderer::Instance().Submit("<4>  arrel : ", Vector2<int>(mapSize.x + 2, weaponY + 3), weaponTextColor[3]);
 	Renderer::Instance().Submit("b", Vector2<int>(mapSize.x + 2 + 4, weaponY + 3), Color::Magenta);
+	sprintf_s(buffer_ammo[3], "%d", weapons[3]->GetMagazine());
+	Renderer::Instance().Submit(buffer_ammo[3], Vector2<int>(mapSize.x + 2 + ammoX, weaponY + 3), weaponTextColor[3]);
 
 	Renderer::Instance().Submit("<5>  ailgun: ", Vector2<int>(mapSize.x + 2, weaponY + 4), weaponTextColor[4]);
 	Renderer::Instance().Submit("r", Vector2<int>(mapSize.x + 2 + 4, weaponY + 4), Color::Cyan);

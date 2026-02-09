@@ -32,7 +32,7 @@ void BloodEffect::Tick(float deltaTime)
 void BloodEffect::SpawnItem()
 {
 	float rv = Util::Randomf(0.0f, 1.0f);
-	if (rv < 0.45f)
+	if (rv < 0.35f)
 	{
 		// StatusItem
 		StatusItem::InitData initData;
@@ -58,27 +58,32 @@ void BloodEffect::SpawnItem()
 		std::unique_ptr<StatusItem> newItem = std::make_unique<StatusItem>(initData);
 		GetOwner()->AddNewActor(std::move(newItem));
 	}
-	else if (rv < 0.95f)
+	else if (rv < 0.75f)
 	{
 		// AmmoItem
 		AmmoItem::InitData initData;
 		initData.spawnPos = GetPosition();
 
 		float rvStat = Util::Randomf(0.0f, 1.0f);
-		if (rvStat < 0.33f)
+		if (rvStat < 0.25f)
 		{
 			initData.type = AmmoItem::WeaponType::Pistol;
-			initData.amount = 12;
+			initData.amount = 18;
 		}
-		else if (rvStat < 0.66f)
+		else if (rvStat < 0.5f)
 		{
 			initData.type = AmmoItem::WeaponType::Uzi;
-			initData.amount = 25;
+			initData.amount = 35;
+		}
+		else if (rvStat < 0.75f)
+		{
+			initData.type = AmmoItem::WeaponType::Shotgun;
+			initData.amount = 8;
 		}
 		else
 		{
-			initData.type = AmmoItem::WeaponType::Shotgun;
-			initData.amount = 6;
+			initData.type = AmmoItem::WeaponType::Barrel;
+			initData.amount = 3;
 		}
 
 		std::unique_ptr<AmmoItem> newItem = std::make_unique<AmmoItem>(initData);

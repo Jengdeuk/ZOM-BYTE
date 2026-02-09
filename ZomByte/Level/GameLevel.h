@@ -75,5 +75,5 @@ private:
 	char buffer_hp[256] = {};
 	char buffer_ar[256] = {};
 	char buffer_ms[256] = {};
-	char buffer_ammo[3][256] = {};
+	char buffer_ammo[4][256] = {};
 };

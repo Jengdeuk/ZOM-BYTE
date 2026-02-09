@@ -2,7 +2,9 @@
 
 #include "Actor/Character/Player.h"
 #include "Actor/Character/Zombie.h"
-#include "Actor/Bullet/Bullet.h"
+#include "Actor/Projectile/Bullet.h"
+#include "Actor/Projectile/PlacedBarrel.h"
+#include "Actor/Effect/ExplosionEffect.h"
 #include "Actor/Item/Item.h"
 
 static float Dot(const Vector2<float>& a, const Vector2<float>& b)
@@ -31,13 +33,14 @@ PhysicsManager& PhysicsManager::Instance()
 void PhysicsManager::PhysicsUpdate(const Actors& actors, float deltaTime)
 {
 	ProcessCollisionBullet(actors, deltaTime);
+	ProcessCollisionExplosionEffect(actors, deltaTime);
 	ProcessCollisionItem(actors, deltaTime);
 }
 
 void PhysicsManager::ProcessCollisionBullet(const Actors& actors, float deltaTime)
 {
 	std::vector<Bullet*> bullets;
-	std::vector<Zombie*> zombies;
+	std::vector<Actor*> others;
 
 	for (auto& actor : actors)
 	{
@@ -45,9 +48,9 @@ void PhysicsManager::ProcessCollisionBullet(const Actors& actors, float deltaTim
 		{
 			bullets.emplace_back(actor.get()->As<Bullet>());
 		}
-		else if (actor->IsTypeOf<Zombie>())
+		else if (actor->IsTypeOf<Zombie>() || actor->IsTypeOf<PlacedBarrel>())
 		{
-			zombies.emplace_back(actor.get()->As<Zombie>());
+			others.emplace_back(actor.get());
 		}
 	}
 
@@ -56,17 +59,23 @@ void PhysicsManager::ProcessCollisionBullet(const Actors& actors, float deltaTim
 	for (auto& bullet : bullets)
 	{
 		float minT = inf;
-		Zombie* target = nullptr;
+		Actor* target = nullptr;
 
-		for (auto& zombie : zombies)
+		for (auto& other : others)
 		{
-			if (zombie->IsDead())
+			Character* character = nullptr;
+			if (other->IsTypeOf<Character>())
+			{
+				character = other->As<Character>();
+			}
+
+			if (character && character->IsDead())
 			{
 				continue;
 			}
 
 			float t = inf - 5.0f;
-			if (!CheckBulletHit(t, bullet->GetLastPos(), bullet->GetPosition(), zombie->GetPosition(), dstRadius))
+			if (!CheckBulletHit(t, bullet->GetLastPos(), bullet->GetPosition(), other->GetPosition(), dstRadius))
 			{
 				continue;
 			}
@@ -74,7 +83,7 @@ void PhysicsManager::ProcessCollisionBullet(const Actors& actors, float deltaTim
 			if (t < minT)
 			{
 				minT = t;
-				target = zombie;
+				target = other;
 			}
 		}
 
@@ -85,10 +94,63 @@ void PhysicsManager::ProcessCollisionBullet(const Actors& actors, float deltaTim
 
 		bullet->Destroy();
 
-		const Vec2f& knockBackDir = bullet->GetFireDir();
-		const float force = 15.0f * static_cast<float>(bullet->GetWeaponInitDamage());
-		target->AccumulateForce(knockBackDir * force);
-		target->OnDamaged(bullet->GetDamage());
+		if (target->IsTypeOf<Character>())
+		{
+			Character* character = target->As<Character>();
+			const Vec2f& knockBackDir = bullet->GetFireDir();
+			const float force = 15.0f * static_cast<float>(bullet->GetWeaponInitDamage());
+			character->AccumulateForce(knockBackDir * force);
+			character->OnDamaged(bullet->GetDamage());
+		}
+		else if (target->IsTypeOf<PlacedBarrel>())
+		{
+			PlacedBarrel* barrel = target->As<PlacedBarrel>();
+			barrel->Explosion();
+		}
+	}
+}
+
+void PhysicsManager::ProcessCollisionExplosionEffect(const Actors& actors, float deltaTime)
+{
+	std::vector<ExplosionEffect*> effects;
+	std::vector<Actor*> others;
+
+	for (auto& actor : actors)
+	{
+		if (actor->IsTypeOf<ExplosionEffect>())
+		{
+			effects.emplace_back(actor.get()->As<ExplosionEffect>());
+		}
+		else if (actor->IsTypeOf<Character>() || actor->IsTypeOf<PlacedBarrel>())
+		{
+			others.emplace_back(actor.get());
+		}
+	}
+
+	float p = 0.0f;
+	for (auto& effect : effects)
+	{
+		for (auto& other : others)
+		{
+			const Vec2f& ePos = effect->GetPosition();
+			const Vec2f& oPos = other->GetPosition();
+			if (CheckPenetration(p, ePos, oPos, 0.5f))
+			{
+				if (other->IsTypeOf<Character>())
+				{
+					Character* character = other->As<Character>();
+					const Vec2f& knockBackDir = (oPos - ePos).Normalized();
+					const float force = 20.0f * static_cast<float>(effect->GetWeaponInitDamage());
+					character->AccumulateForce(knockBackDir * force);
+					character->OnDamaged(effect->GetDamage());
+				}
+				else if (other->IsTypeOf<PlacedBarrel>())
+				{
+					PlacedBarrel* barrel = other->As<PlacedBarrel>();
+					barrel->Explosion();
+				}
+			}
+		}
 	}
 }
 

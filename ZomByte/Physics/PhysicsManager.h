@@ -23,6 +23,7 @@ public:
 
 private:
 	void ProcessCollisionBullet(const Actors& actors, float deltaTime);
+	void ProcessCollisionExplosionEffect(const Actors& actors, float deltaTime);
 	void ProcessCollisionItem(const Actors& actors, float deltaTime);
 	
 public:

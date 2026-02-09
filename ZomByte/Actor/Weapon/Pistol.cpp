@@ -2,7 +2,7 @@
 
 #include "Level/Level.h"
 #include "Actor/Character/Player.h"
-#include "Actor/Bullet/Bullet.h"
+#include "Actor/Projectile/Bullet.h"
 
 #include <memory>
 
