@@ -123,10 +123,10 @@ void GameLevel::LevelUp()
 	regenTime -= round(regenTime * 0.05f);
 	regenCount += static_cast<int>(round(regenCount * 0.1f));
 
-	minStat.healthPoint += static_cast<int>(round(minStat.healthPoint * 0.5f));
-	maxStat.healthPoint += static_cast<int>(round(maxStat.healthPoint * 0.5f));
+	++minStat.healthPoint;
+	++maxStat.healthPoint;
 
-	maxStat.moveSpeed += static_cast<int>(round(maxStat.moveSpeed * 0.1f));
+	maxStat.moveSpeed += static_cast<int>(round(maxStat.moveSpeed * 0.2f));
 
 	++minStat.attackRate;
 	++maxStat.attackRate;
@@ -255,10 +255,7 @@ void GameLevel::DrawHUD()
 		buffer_hp[2 * i] = '*';
 		buffer_hp[2 * i + 1] = ' ';
 	}
-	for (int i = 0; i < 10; ++i)
-	{
-		buffer_hp[2 * hp + i] = ' ';
-	}
+	buffer_hp[hp] = '\0';
 	Renderer::Instance().Submit(buffer_hp, Vector2<int>(mapSize.x + 2, 6), Color::Red);
 
 	// 8 - ar
@@ -268,10 +265,7 @@ void GameLevel::DrawHUD()
 		buffer_ar[2 * i] = '*';
 		buffer_ar[2 * i + 1] = ' ';
 	}
-	for (int i = 0; i < 10; ++i)
-	{
-		buffer_ar[2 * ar + i] = ' ';
-	}
+	buffer_ar[ar] = '\0';
 	Renderer::Instance().Submit(buffer_ar, Vector2<int>(mapSize.x + 2, 8), Color::Yellow);
 
 	// 10 - ms
@@ -281,10 +275,7 @@ void GameLevel::DrawHUD()
 		buffer_ms[2 * i] = '*';
 		buffer_ms[2 * i + 1] = ' ';
 	}
-	for (int i = 0; i < 10; ++i)
-	{
-		buffer_ms[2 * ms + i] = ' ';
-	}
+	buffer_ms[ms] = '\0';
 	Renderer::Instance().Submit(buffer_ms, Vector2<int>(mapSize.x + 2, 10), Color::Cyan);
 
 	// mapSize.y - weapon

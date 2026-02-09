@@ -3,7 +3,7 @@
 #include "Actor/Character/Character.h"
 
 static const Actor::InitData hpItemInitData{ "*", Vector2<float>(), Color::Red, 9 };
-static const Actor::InitData arItemInitData{ "*", Vector2<float>(), Color::Yellow, 9 };
+static const Actor::InitData arItemInitData{ "*", Vector2<float>(), Color::Magenta, 9 };
 static const Actor::InitData msItemInitData{ "*", Vector2<float>(), Color::Cyan, 9 };
 
 StatusItem::StatusItem(InitData initData)

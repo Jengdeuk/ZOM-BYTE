@@ -39,12 +39,12 @@ void BloodEffect::SpawnItem()
 		initData.spawnPos = GetPosition();
 
 		float rvStat = Util::Randomf(0.0f, 1.0f);
-		if (rvStat < 0.5f)
+		if (rvStat < 0.68f)
 		{
 			initData.status = StatusItem::Status::HealthPoint;
 			initData.amount = 1;
 		}
-		else if (rvStat < 0.65f)
+		else if (rvStat < 0.7f)
 		{
 			initData.status = StatusItem::Status::AttackRate;
 			initData.amount = 1;

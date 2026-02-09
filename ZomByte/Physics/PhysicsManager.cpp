@@ -52,7 +52,7 @@ void PhysicsManager::ProcessCollisionBullet(const Actors& actors, float deltaTim
 	}
 
 	const float inf = 12345678.9f;
-	const float dstRadius = 0.6f;
+	const float dstRadius = 1.0f;
 	for (auto& bullet : bullets)
 	{
 		float minT = inf;
