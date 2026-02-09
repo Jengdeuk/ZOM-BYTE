@@ -38,10 +38,12 @@ public:
 	inline Player* GetOwner() const { return owner; }
 	Level* GetLevel() const;
 	inline const int GetAttackRate() const { return attackRate; }
+	void SetAttackRate(const int ownerAR);
 
 private:
 	Timer timer;
 	int attackRate = 0;
+	int initAR = 0;
 
 private:
 	Player* owner = nullptr;

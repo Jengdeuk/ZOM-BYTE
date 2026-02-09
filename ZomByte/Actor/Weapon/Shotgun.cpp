@@ -1,8 +1,8 @@
 #include "Shotgun.h"
 
 #include "Level/Level.h"
-#include "Character/Player.h"
-#include "Bullet/Bullet.h"
+#include "Actor/Character/Player.h"
+#include "Actor/Bullet/Bullet.h"
 
 #include <memory>
 

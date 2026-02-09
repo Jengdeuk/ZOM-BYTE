@@ -1,8 +1,8 @@
 #include "PhysicsManager.h"
 
-#include "Bullet/Bullet.h"
-#include "Character/Player.h"
-#include "Character/Zombie.h"
+#include "Actor/Bullet/Bullet.h"
+#include "Actor/Character/Player.h"
+#include "Actor/Character/Zombie.h"
 
 static float Dot(const Vector2<float>& a, const Vector2<float>& b)
 {

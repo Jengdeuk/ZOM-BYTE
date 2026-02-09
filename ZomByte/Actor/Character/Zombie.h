@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Character/Character.h"
+#include "Actor/Character/Character.h"
 #include "Util/Timer.h"
 
 using namespace JD;

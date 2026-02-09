@@ -1,6 +1,6 @@
 #include "Weapon.h"
 
-#include "Character/Player.h"
+#include "Actor/Character/Player.h"
 
 const Vector2<float> Weapon::dir[8] =
 {
@@ -17,6 +17,7 @@ const Vector2<float> Weapon::dir[8] =
 Weapon::Weapon(const InitData& initData)
 	: Super(Super::InitData()),
 	attackRate(initData.attackRate),
+	initAR(initData.attackRate),
 	owner(initData.owner)
 {
 	timer.SetTargetTime(initData.timerTime);
@@ -53,4 +54,9 @@ void Weapon::ReloadBullet()
 Level* Weapon::GetLevel() const
 {
 	return owner->GetOwner();
+}
+
+void Weapon::SetAttackRate(const int ownerAR)
+{
+	attackRate = initAR * ownerAR;
 }

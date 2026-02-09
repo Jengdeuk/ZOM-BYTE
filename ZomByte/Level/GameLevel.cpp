@@ -4,8 +4,8 @@
 #include "Render/Renderer.h"
 #include "Physics/PhysicsManager.h"
 
-#include "Character/Player.h"
-#include "Character/Zombie.h"
+#include "Actor/Character/Player.h"
+#include "Actor/Character/Zombie.h"
 
 #include "Util/Util.h"
 

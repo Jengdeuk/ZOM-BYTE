@@ -24,40 +24,40 @@
     <ClCompile Include="Level\GameLevel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Character\Player.cpp">
+    <ClCompile Include="Actor\Character\Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Level\MenuLevel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Character\Character.cpp">
+    <ClCompile Include="Actor\Character\Character.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Weapon\Weapon.cpp">
+    <ClCompile Include="Actor\Weapon\Weapon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Weapon\Pistol.cpp">
+    <ClCompile Include="Actor\Weapon\Pistol.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Bullet\Bullet.cpp">
+    <ClCompile Include="Actor\Bullet\Bullet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Weapon\Uzi.cpp">
+    <ClCompile Include="Actor\Weapon\Uzi.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Weapon\Shotgun.cpp">
+    <ClCompile Include="Actor\Weapon\Shotgun.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Character\Zombie.cpp">
+    <ClCompile Include="Actor\Character\Zombie.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Physics\PhysicsManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Effect\BloodEffect.cpp">
+    <ClCompile Include="Actor\Effect\BloodEffect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Effect\Effect.cpp">
+    <ClCompile Include="Actor\Effect\Effect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -68,31 +68,31 @@
     <ClInclude Include="Level\GameLevel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Character\Player.h">
+    <ClInclude Include="Actor\Character\Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Level\MenuLevel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Character\Character.h">
+    <ClInclude Include="Actor\Character\Character.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Weapon\Weapon.h">
+    <ClInclude Include="Actor\Weapon\Weapon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Weapon\Pistol.h">
+    <ClInclude Include="Actor\Weapon\Pistol.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Bullet\Bullet.h">
+    <ClInclude Include="Actor\Bullet\Bullet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Weapon\Uzi.h">
+    <ClInclude Include="Actor\Weapon\Uzi.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Weapon\Shotgun.h">
+    <ClInclude Include="Actor\Weapon\Shotgun.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Character\Zombie.h">
+    <ClInclude Include="Actor\Character\Zombie.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Physics\Collision.h">
@@ -101,10 +101,10 @@
     <ClInclude Include="Physics\PhysicsManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Effect\BloodEffect.h">
+    <ClInclude Include="Actor\Effect\BloodEffect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Effect\Effect.h">
+    <ClInclude Include="Actor\Effect\Effect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

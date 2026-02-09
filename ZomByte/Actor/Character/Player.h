@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Character/Character.h"
+#include "Actor/Character/Character.h"
 
 #include <vector>
 
@@ -21,6 +21,7 @@ public:
 
 private:
 	void TakeWeapons();
+	void EnhanceWeapons();
 
 private:
 	void MovementInput(float deltaTime);

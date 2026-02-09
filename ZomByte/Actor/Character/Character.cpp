@@ -1,7 +1,7 @@
 #include "Character.h"
 
 #include "Level/Level.h"
-#include "Effect/BloodEffect.h"
+#include "Actor/Effect/BloodEffect.h"
 
 #include <cmath>
 

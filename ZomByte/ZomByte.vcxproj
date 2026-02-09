@@ -90,38 +90,38 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Bullet\Bullet.cpp" />
-    <ClCompile Include="Character\Character.cpp" />
-    <ClCompile Include="Character\Player.cpp" />
-    <ClCompile Include="Character\Zombie.cpp" />
-    <ClCompile Include="Effect\BloodEffect.cpp" />
-    <ClCompile Include="Effect\Effect.cpp" />
+    <ClCompile Include="Actor\Bullet\Bullet.cpp" />
+    <ClCompile Include="Actor\Character\Character.cpp" />
+    <ClCompile Include="Actor\Character\Player.cpp" />
+    <ClCompile Include="Actor\Character\Zombie.cpp" />
+    <ClCompile Include="Actor\Effect\BloodEffect.cpp" />
+    <ClCompile Include="Actor\Effect\Effect.cpp" />
     <ClCompile Include="Game\Game.cpp" />
     <ClCompile Include="Level\GameLevel.cpp" />
     <ClCompile Include="Level\MenuLevel.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="Physics\PhysicsManager.cpp" />
-    <ClCompile Include="Weapon\Pistol.cpp" />
-    <ClCompile Include="Weapon\Shotgun.cpp" />
-    <ClCompile Include="Weapon\Uzi.cpp" />
-    <ClCompile Include="Weapon\Weapon.cpp" />
+    <ClCompile Include="Actor\Weapon\Pistol.cpp" />
+    <ClCompile Include="Actor\Weapon\Shotgun.cpp" />
+    <ClCompile Include="Actor\Weapon\Uzi.cpp" />
+    <ClCompile Include="Actor\Weapon\Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Bullet\Bullet.h" />
-    <ClInclude Include="Character\Character.h" />
-    <ClInclude Include="Character\Player.h" />
-    <ClInclude Include="Character\Zombie.h" />
-    <ClInclude Include="Effect\BloodEffect.h" />
-    <ClInclude Include="Effect\Effect.h" />
+    <ClInclude Include="Actor\Bullet\Bullet.h" />
+    <ClInclude Include="Actor\Character\Character.h" />
+    <ClInclude Include="Actor\Character\Player.h" />
+    <ClInclude Include="Actor\Character\Zombie.h" />
+    <ClInclude Include="Actor\Effect\BloodEffect.h" />
+    <ClInclude Include="Actor\Effect\Effect.h" />
     <ClInclude Include="Game\Game.h" />
     <ClInclude Include="Level\GameLevel.h" />
     <ClInclude Include="Level\MenuLevel.h" />
     <ClInclude Include="Physics\Collision.h" />
     <ClInclude Include="Physics\PhysicsManager.h" />
-    <ClInclude Include="Weapon\Pistol.h" />
-    <ClInclude Include="Weapon\Shotgun.h" />
-    <ClInclude Include="Weapon\Uzi.h" />
-    <ClInclude Include="Weapon\Weapon.h" />
+    <ClInclude Include="Actor\Weapon\Pistol.h" />
+    <ClInclude Include="Actor\Weapon\Shotgun.h" />
+    <ClInclude Include="Actor\Weapon\Uzi.h" />
+    <ClInclude Include="Actor\Weapon\Weapon.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

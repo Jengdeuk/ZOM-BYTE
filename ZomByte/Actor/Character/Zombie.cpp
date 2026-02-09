@@ -7,9 +7,9 @@
 
 #include "Physics/Collision.h"
 
-#include "Weapon/Pistol.h"
-#include "Weapon/Uzi.h"
-#include "Weapon/Shotgun.h"
+#include "Actor/Weapon/Pistol.h"
+#include "Actor/Weapon/Uzi.h"
+#include "Actor/Weapon/Shotgun.h"
 
 #include <memory>
 
