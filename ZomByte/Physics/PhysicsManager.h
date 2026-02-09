@@ -22,7 +22,8 @@ public:
 	void PhysicsUpdate(const Actors& actors, float deltaTime);
 
 private:
-	void ProcessCollsionBullet(const Actors& actors, float deltaTime);
+	void ProcessCollisionBullet(const Actors& actors, float deltaTime);
+	void ProcessCollisionItem(const Actors& actors, float deltaTime);
 	
 public:
 	void ResolvePenetration(const Actors& actors, float deltaTime);

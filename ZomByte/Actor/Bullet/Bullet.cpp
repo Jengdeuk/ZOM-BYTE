@@ -22,6 +22,7 @@ Bullet::Bullet(const Actor::InitData& actorInitData, const InitData& initData)
 			actorInitData.sortingOrder
 		}),
 	damage(initData.damage),
+	weaponDamage(initData.weaponDamage),
 	direction(initData.fireDir),
 	moveSpeed(initData.moveSpeed),
 	drag(initData.drag),

@@ -25,6 +25,9 @@ public:
 
 public:
 	virtual void OnDamaged(const int damage);
+	void DrinkPotion(const int amount);
+	virtual void StrengthTraining(const int amount);
+	void SpeedTraining(const int amount);
 
 public:
 	virtual void TransformUpdate(float deltaTime) override;

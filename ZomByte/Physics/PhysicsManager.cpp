@@ -1,8 +1,9 @@
 #include "PhysicsManager.h"
 
-#include "Actor/Bullet/Bullet.h"
 #include "Actor/Character/Player.h"
 #include "Actor/Character/Zombie.h"
+#include "Actor/Bullet/Bullet.h"
+#include "Actor/Item/Item.h"
 
 static float Dot(const Vector2<float>& a, const Vector2<float>& b)
 {
@@ -29,10 +30,11 @@ PhysicsManager& PhysicsManager::Instance()
 
 void PhysicsManager::PhysicsUpdate(const Actors& actors, float deltaTime)
 {
-	ProcessCollsionBullet(actors, deltaTime);
+	ProcessCollisionBullet(actors, deltaTime);
+	ProcessCollisionItem(actors, deltaTime);
 }
 
-void PhysicsManager::ProcessCollsionBullet(const Actors& actors, float deltaTime)
+void PhysicsManager::ProcessCollisionBullet(const Actors& actors, float deltaTime)
 {
 	std::vector<Bullet*> bullets;
 	std::vector<Zombie*> zombies;
@@ -84,10 +86,41 @@ void PhysicsManager::ProcessCollsionBullet(const Actors& actors, float deltaTime
 		bullet->Destroy();
 
 		const Vec2f& knockBackDir = bullet->GetFireDir();
-		const int damage = bullet->GetDamage();
-		const float force = 15.0f * static_cast<float>(damage);
+		const float force = 15.0f * static_cast<float>(bullet->GetWeaponInitDamage());
 		target->AccumulateForce(knockBackDir * force);
-		target->OnDamaged(damage);
+		target->OnDamaged(bullet->GetDamage());
+	}
+}
+
+void PhysicsManager::ProcessCollisionItem(const Actors& actors, float deltaTime)
+{
+	std::vector<Item*> items;
+	Player* player = nullptr;
+
+	for (auto& actor : actors)
+	{
+		if (actor->IsTypeOf<Item>())
+		{
+			items.emplace_back(actor.get()->As<Item>());
+		}
+		else if (actor->IsTypeOf<Player>())
+		{
+			player = actor.get()->As<Player>();
+		}
+	}
+
+	if (!player)
+	{
+		return;
+	}
+
+	float p = 0.0f;
+	for (auto& item : items)
+	{
+		if (CheckPenetration(p, item->GetPosition(), player->GetPosition(), 0.5f))
+		{
+			item->ApplyEffect(player);
+		}
 	}
 }
 
@@ -125,20 +158,20 @@ void PhysicsManager::ResolvePenetration(const Actors& actors, float deltaTime)
 			const Vec2f& bPos = b->GetPosition();
 			if (CheckPenetration(p, aPos, bPos, 0.5f))
 			{
-				const bool isACharacter = a->IsTypeOf<Character>();
-				const bool isBCharacter = b->IsTypeOf<Character>();
+				const bool isAMovable = a->IsTypeOf<Character>() || a->IsTypeOf<Item>();
+				const bool isBMovable = b->IsTypeOf<Character>() || b->IsTypeOf<Item>();
 
 				const Vec2f n = bPos - aPos;
-				if (isACharacter && isBCharacter)
+				if (isAMovable && isBMovable)
 				{
 					a->SetPosition(aPos + n * p * -0.5f);
 					b->SetPosition(bPos + n * p * 0.5f);
 				}
-				else if (isACharacter)
+				else if (isAMovable)
 				{
 					a->SetPosition(aPos + n * p * -1.0f);
 				}
-				else if (isBCharacter)
+				else if (isBMovable)
 				{
 					b->SetPosition(bPos + n * p);
 				}

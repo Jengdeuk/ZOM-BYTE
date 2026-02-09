@@ -37,7 +37,7 @@ void Character::Tick(float deltaTime)
 
 			// BloodEffect
 			Actor::InitData initData;
-			initData.position = Vector2<int>(GetPosition());
+			initData.position = GetPosition();
 			initData.sortingOrder = 1;
 			std::unique_ptr<BloodEffect> newEffect = std::make_unique<BloodEffect>(initData);
 			GetOwner()->AddNewActor(std::move(newEffect));
@@ -69,6 +69,21 @@ void Character::OnDamaged(const int damage)
 	}
 
 	PlayDamagedAnimation();
+}
+
+void Character::DrinkPotion(const int amount)
+{
+	status.healthPoint += amount;
+}
+
+void Character::StrengthTraining(const int amount)
+{
+	status.attackRate += amount;
+}
+
+void Character::SpeedTraining(const int amount)
+{
+	status.moveSpeed += static_cast<float>(amount);
 }
 
 void Character::TransformUpdate(float deltaTime)

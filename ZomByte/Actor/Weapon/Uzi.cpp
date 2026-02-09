@@ -33,14 +33,15 @@ void Uzi::Fire(const int dirIdx)
 	}
 
 	Actor::InitData actorInitData;
-	actorInitData.position = Vector2<int>(GetOwner()->GetPosition());
+	actorInitData.position = GetOwner()->GetPosition();
 	actorInitData.color = Color::Yellow;
 	actorInitData.sortingOrder = 5;
 
 	Bullet::InitData initData;
 	initData.damage = GetAttackRate();
+	initData.weaponDamage = GetInitAR();
 	initData.dirIdx = dirIdx;
-	initData.lifeTime = 1.0f;
+	initData.lifeTime = 0.75f;
 	initData.moveSpeed = 100.0f;
 	initData.drag = 1.0f;
 	initData.fireDir = Weapon::dir[dirIdx];

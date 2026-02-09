@@ -87,6 +87,13 @@ void Player::EnhanceWeapons()
 	}
 }
 
+void Player::StrengthTraining(const int amount)
+{
+	Super::StrengthTraining(amount);
+
+	EnhanceWeapons();
+}
+
 void Player::MovementInput(float deltaTime)
 {
 	Vector2<float> moveDirection;

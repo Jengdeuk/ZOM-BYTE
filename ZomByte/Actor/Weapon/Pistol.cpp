@@ -33,14 +33,15 @@ void Pistol::Fire(const int dirIdx)
 	}
 
 	Actor::InitData actorInitData;
-	actorInitData.position = Vector2<int>(GetOwner()->GetPosition());
+	actorInitData.position = GetOwner()->GetPosition();
 	actorInitData.color = Color::White;
 	actorInitData.sortingOrder = 4;
 
 	Bullet::InitData initData;
 	initData.damage = GetAttackRate();
+	initData.weaponDamage = GetInitAR();
 	initData.dirIdx = dirIdx;
-	initData.lifeTime = 1.0f;
+	initData.lifeTime = 0.5f;
 	initData.moveSpeed = 100.0f;
 	initData.drag = 1.0f;
 	initData.fireDir = Weapon::dir[dirIdx];

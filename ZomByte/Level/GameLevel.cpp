@@ -13,7 +13,7 @@
 
 using namespace JD;
 
-static Actor::InitData spawnData{ "Z", Vector2<int>(), Color::DarkGreen, 9 };
+static Actor::InitData spawnData{ "Z", Vector2<float>(), Color::DarkGreen, 9 };
 static Character::Status minStat{ 1, 1, 1 };
 static Character::Status maxStat{ 1, 1, 2 };
 
@@ -45,13 +45,13 @@ GameLevel::GameLevel(const Vector2<int>& mapSize)
 	// Player
 	initData.image = "P";
 	initData.color = Color::DarkYellow;
-	initData.position = Vector2<int>(0, 0);
+	initData.position = Vector2<float>(0.0f, 0.0f);
 	initData.sortingOrder = 10;
 
 	Character::Status status;
-	status.healthPoint = 50;
+	status.healthPoint = 3;
 	status.attackRate = 1;
-	status.moveSpeed = 6;
+	status.moveSpeed = 5;
 
 	std::unique_ptr<Player> newPlayer = std::make_unique<Player>(initData, status);
 	player = newPlayer.get();
@@ -112,11 +112,13 @@ void GameLevel::LevelUp()
 	levelUpTimer.Reset();
 
 	++level;
-	regenTime -= static_cast<int>(round(regenTime * 0.2f));
-	regenCount += static_cast<int>(round(regenCount * 0.2f));
+	regenTime -= round(regenTime * 0.05f);
+	regenCount += static_cast<int>(round(regenCount * 0.1f));
 
-	maxStat.healthPoint += static_cast<int>(round(maxStat.healthPoint * 0.2f));
-	maxStat.moveSpeed += static_cast<int>(round(maxStat.moveSpeed * 0.2f));
+	minStat.healthPoint += static_cast<int>(round(minStat.healthPoint * 0.5f));
+	maxStat.healthPoint += static_cast<int>(round(maxStat.healthPoint * 0.5f));
+
+	maxStat.moveSpeed += static_cast<int>(round(maxStat.moveSpeed * 0.5f));
 
 	++minStat.attackRate;
 	++maxStat.attackRate;
@@ -126,8 +128,8 @@ void GameLevel::Regen()
 {
 	regenTimer.Reset();
 
-	const Vector2<int> targetPos{ player->GetPosition() };
-	const Vector2<int> halfMapSize{ mapSize.x / 2 + 3, mapSize.y / 2 + 3 };
+	const Vector2<float> targetPos{ player->GetPosition() };
+	const Vector2<float> halfMapSize{ mapSize.x * 0.5f + 3.0f, mapSize.y * 0.5f + 3.0f };
 
 	Character::Status status;
 	Actor::InitData initData{ spawnData };
@@ -139,9 +141,9 @@ void GameLevel::Regen()
 		status.attackRate = minStat.attackRate;
 		status.moveSpeed = Util::Randomf(minStat.moveSpeed, maxStat.moveSpeed);
 
-		const int summonX = targetPos.x - halfMapSize.x;
-		const int summonY = Util::Random(targetPos.y - halfMapSize.y, targetPos.y + halfMapSize.y);
-		initData.position = Vector2<int>(summonX, summonY);
+		const float summonX = targetPos.x - halfMapSize.x;
+		const float summonY = Util::Randomf(targetPos.y - halfMapSize.y, targetPos.y + halfMapSize.y);
+		initData.position = Vector2<float>(summonX, summonY);
 
 		std::unique_ptr<Zombie> newZombie = std::make_unique<Zombie>(initData, status);
 		AddNewActor(std::move(newZombie));
@@ -154,9 +156,9 @@ void GameLevel::Regen()
 		status.attackRate = minStat.attackRate;
 		status.moveSpeed = Util::Randomf(minStat.moveSpeed, maxStat.moveSpeed);
 
-		const int summonX = Util::Random(targetPos.x - halfMapSize.x, targetPos.x + halfMapSize.x);
-		const int summonY = targetPos.y + halfMapSize.y;
-		initData.position = Vector2<int>(summonX, summonY);
+		const float summonX = Util::Randomf(targetPos.x - halfMapSize.x, targetPos.x + halfMapSize.x);
+		const float summonY = targetPos.y + halfMapSize.y;
+		initData.position = Vector2<float>(summonX, summonY);
 
 		std::unique_ptr<Zombie> newZombie = std::make_unique<Zombie>(initData, status);
 		AddNewActor(std::move(newZombie));
@@ -169,9 +171,9 @@ void GameLevel::Regen()
 		status.attackRate = minStat.attackRate;
 		status.moveSpeed = Util::Randomf(minStat.moveSpeed, maxStat.moveSpeed);
 
-		const int summonX = targetPos.x + halfMapSize.x;
-		const int summonY = Util::Random(targetPos.y - halfMapSize.y, targetPos.y + halfMapSize.y);
-		initData.position = Vector2<int>(summonX, summonY);
+		const float summonX = targetPos.x + halfMapSize.x;
+		const float summonY = Util::Randomf(targetPos.y - halfMapSize.y, targetPos.y + halfMapSize.y);
+		initData.position = Vector2<float>(summonX, summonY);
 
 		std::unique_ptr<Zombie> newZombie = std::make_unique<Zombie>(initData, status);
 		AddNewActor(std::move(newZombie));
@@ -184,9 +186,9 @@ void GameLevel::Regen()
 		status.attackRate = minStat.attackRate;
 		status.moveSpeed = Util::Randomf(minStat.moveSpeed, maxStat.moveSpeed);
 
-		const int summonX = Util::Random(targetPos.x - halfMapSize.x, targetPos.x + halfMapSize.x);
-		const int summonY = targetPos.y - halfMapSize.y;
-		initData.position = Vector2<int>(summonX, summonY);
+		const float summonX = Util::Randomf(targetPos.x - halfMapSize.x, targetPos.x + halfMapSize.x);
+		const float summonY = targetPos.y - halfMapSize.y;
+		initData.position = Vector2<float>(summonX, summonY);
 
 		std::unique_ptr<Zombie> newZombie = std::make_unique<Zombie>(initData, status);
 		AddNewActor(std::move(newZombie));

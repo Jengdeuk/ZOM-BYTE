@@ -18,7 +18,7 @@ namespace JD
 		struct InitData
 		{
 			const char* image = nullptr;
-			Vector2<int> position;
+			Vector2<float> position;
 			Color color = Color::Gray;
 			int sortingOrder = 0;
 		};

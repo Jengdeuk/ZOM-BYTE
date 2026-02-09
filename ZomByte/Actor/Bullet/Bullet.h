@@ -13,6 +13,7 @@ class Bullet : public Actor
 	struct InitData
 	{
 		int damage = 0;
+		int weaponDamage = 0;
 		int dirIdx = 0;
 		float lifeTime = 0.0f;
 		float moveSpeed = 0.0f;
@@ -33,12 +34,14 @@ public:
 	inline const Vector2<float>& GetLastPos() const { return lastPosition; }
 	inline const Vector2<float>& GetFireDir() const { return direction; }
 	inline const int GetDamage() const { return damage; }
+	inline const int GetWeaponInitDamage() const { return weaponDamage; }
 
 private:
 	void UpdateMovement(float deltaTime);
 
 private:
 	int damage = 0;
+	int weaponDamage = 0;
 	Timer timer;
 	Vector2<float> direction;
 	float moveSpeed = 0.0f;

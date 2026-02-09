@@ -45,13 +45,14 @@ void Shotgun::Fire(const int dirIdx)
 	}
 
 	Actor::InitData actorInitData;
-	actorInitData.position = Vector2<int>(GetOwner()->GetPosition());
+	actorInitData.position = GetOwner()->GetPosition();
 	actorInitData.color = Color::White;
 	actorInitData.sortingOrder = 6;
 
 	Bullet::InitData initData;
 	initData.damage = GetAttackRate();
-	initData.lifeTime = 1.0f;
+	initData.weaponDamage = GetInitAR();
+	initData.lifeTime = 0.7f;
 	initData.moveSpeed = 150.0f;
 	initData.drag = 6.0f;
 

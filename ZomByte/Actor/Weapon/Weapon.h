@@ -39,6 +39,7 @@ public:
 	Level* GetLevel() const;
 	inline const int GetAttackRate() const { return attackRate; }
 	void SetAttackRate(const int ownerAR);
+	inline const int GetInitAR() const { return initAR; }
 
 private:
 	Timer timer;

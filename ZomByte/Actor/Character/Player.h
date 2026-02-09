@@ -24,6 +24,9 @@ private:
 	void EnhanceWeapons();
 
 private:
+	virtual void StrengthTraining(const int amount) override;
+
+private:
 	void MovementInput(float deltaTime);
 	void ChangeWeaponInput();
 	void UseWeaponInput();
