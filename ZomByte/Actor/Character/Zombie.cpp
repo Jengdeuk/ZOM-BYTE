@@ -93,8 +93,7 @@ void Zombie::TickChase(float deltaTime)
 		target->OnDamaged(GetStatus().attackRate);
 
 		const Vector2<float> knockBackDir{ (target->GetPosition() - GetPosition()).Normalized() };
-		const float force = 10.0f * static_cast<float>(GetStatus().attackRate);
-		target->AccumulateForce(knockBackDir * force);
+		target->AccumulateForce(knockBackDir * 15.0f);
 
 		ChangeState(State::Bite);
 		return;

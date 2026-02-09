@@ -18,9 +18,11 @@ Weapon::Weapon(const InitData& initData)
 	: Super(Super::InitData()),
 	attackRate(initData.attackRate),
 	initAR(initData.attackRate),
+	magazine(initData.magazine),
+	clip(initData.clip),
 	owner(initData.owner)
 {
-	timer.SetTargetTime(initData.timerTime);
+	timer.SetTargetTime(initData.reloadTime);
 }
 
 void Weapon::BeginPlay()
@@ -43,12 +45,22 @@ void Weapon::Draw()
 
 bool Weapon::IsFireable()
 {
-	return timer.IsTimeOut();
+	return (timer.IsTimeOut() && magazine >= clip);
 }
 
 void Weapon::ReloadBullet()
 {
 	timer.Reset();
+}
+
+void Weapon::RefillAmmo(const int amount)
+{
+	magazine += amount * clip;
+}
+
+void Weapon::Fire(const int dirIdx)
+{
+	magazine -= clip;
 }
 
 Level* Weapon::GetLevel() const

@@ -44,33 +44,43 @@ void Player::Tick(float deltaTime)
 	UseWeaponInput();
 }
 
+void Player::RefillAmmo(const int weaponIdx, const int amount)
+{
+	weapons[weaponIdx]->RefillAmmo(amount);
+}
+
 void Player::TakeWeapons()
 {
 	std::unique_ptr<Weapon> newWeapon;
+
 	Weapon::InitData initData;
+	initData.owner = this;
 
 	// 1. Pistol
-	initData.timerTime = 0.425f;
+	initData.reloadTime = 0.425f;
 	initData.attackRate = 1;
-	initData.owner = this;
+	initData.magazine = 99;
+	initData.clip = 1;
 
 	newWeapon = std::make_unique<Pistol>(initData);
 	weapons.emplace_back(newWeapon.get());
 	GetOwner()->AddNewActor(std::move(newWeapon));
 
 	// 2. Uzi
-	initData.timerTime = 0.175f;
+	initData.reloadTime = 0.175f;
 	initData.attackRate = 1;
-	initData.owner = this;
+	initData.magazine = 0;
+	initData.clip = 1;
 
 	newWeapon = std::make_unique<Uzi>(initData);
 	weapons.emplace_back(newWeapon.get());
 	GetOwner()->AddNewActor(std::move(newWeapon));
 
 	// 3. Shotgun
-	initData.timerTime = 1.0f;
+	initData.reloadTime = 1.0f;
 	initData.attackRate = 4;
-	initData.owner = this;
+	initData.magazine = 0;
+	initData.clip = 3;
 
 	newWeapon = std::make_unique<Shotgun>(initData);
 	weapons.emplace_back(newWeapon.get());

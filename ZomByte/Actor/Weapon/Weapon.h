@@ -14,8 +14,10 @@ class Weapon : public Actor
 
 	struct InitData
 	{
-		float timerTime = 0.0f;
+		float reloadTime = 0.0f;
 		int attackRate = 0;
+		int magazine = 0;
+		int clip = 0;
 		Player* owner = nullptr;
 	};
 
@@ -32,7 +34,8 @@ public:
 public:
 	bool IsFireable();
 	void ReloadBullet();
-	virtual void Fire(const int dirIdx) = 0;
+	void RefillAmmo(const int amount);
+	virtual void Fire(const int dirIdx);
 
 public:
 	inline Player* GetOwner() const { return owner; }
@@ -40,11 +43,14 @@ public:
 	inline const int GetAttackRate() const { return attackRate; }
 	void SetAttackRate(const int ownerAR);
 	inline const int GetInitAR() const { return initAR; }
+	inline const int GetMagazine() const { return magazine; }
 
 private:
 	Timer timer;
 	int attackRate = 0;
 	int initAR = 0;
+	int magazine = 0;
+	int clip = 0;
 
 private:
 	Player* owner = nullptr;

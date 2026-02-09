@@ -5,11 +5,12 @@
 #include "Level/GameLevel.h"
 #include "Actor/Character/Player.h"
 #include "Actor/Item/StatusItem.h"
+#include "Actor/Item/AmmoItem.h"
 
 static const Effect::EffectFrame effectSequence[] =
 {
-	{"#", 1.0f, Color::DarkRed},
-	{"#", 0.5f, Color::DarkGray}
+	{"#", 0.5f, Color::DarkRed},
+	{"#", 0.25f, Color::DarkGray}
 };
 
 BloodEffect::BloodEffect(const Actor::InitData& initData)
@@ -31,7 +32,7 @@ void BloodEffect::Tick(float deltaTime)
 void BloodEffect::SpawnItem()
 {
 	float rv = Util::Randomf(0.0f, 1.0f);
-	if (rv < 0.5f)
+	if (rv < 0.45f)
 	{
 		// StatusItem
 		StatusItem::InitData initData;
@@ -40,19 +41,16 @@ void BloodEffect::SpawnItem()
 		float rvStat = Util::Randomf(0.0f, 1.0f);
 		if (rvStat < 0.5f)
 		{
-			// HP
 			initData.status = StatusItem::Status::HealthPoint;
 			initData.amount = 1;
 		}
-		else if (rvStat < 0.75f)
+		else if (rvStat < 0.65f)
 		{
-			// AR
 			initData.status = StatusItem::Status::AttackRate;
 			initData.amount = 1;
 		}
 		else
 		{
-			// MS
 			initData.status = StatusItem::Status::MoveSpeed;
 			initData.amount = 1;
 		}
@@ -60,9 +58,30 @@ void BloodEffect::SpawnItem()
 		std::unique_ptr<StatusItem> newItem = std::make_unique<StatusItem>(initData);
 		GetOwner()->AddNewActor(std::move(newItem));
 	}
-	else
+	else if (rv < 0.95f)
 	{
-		// WeaponItem
+		// AmmoItem
+		AmmoItem::InitData initData;
+		initData.spawnPos = GetPosition();
 
+		float rvStat = Util::Randomf(0.0f, 1.0f);
+		if (rvStat < 0.33f)
+		{
+			initData.type = AmmoItem::WeaponType::Pistol;
+			initData.amount = 12;
+		}
+		else if (rvStat < 0.66f)
+		{
+			initData.type = AmmoItem::WeaponType::Uzi;
+			initData.amount = 25;
+		}
+		else
+		{
+			initData.type = AmmoItem::WeaponType::Shotgun;
+			initData.amount = 6;
+		}
+
+		std::unique_ptr<AmmoItem> newItem = std::make_unique<AmmoItem>(initData);
+		GetOwner()->AddNewActor(std::move(newItem));
 	}
 }

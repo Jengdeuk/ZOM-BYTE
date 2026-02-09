@@ -65,11 +65,12 @@ private:
 	std::unique_ptr<char[]> backgroundImg;
 
 private:
+	char buffer_stime[256] = {};
+	char buffer_fps[256] = {};
+	char buffer_level[256] = {};
+	char buffer_killed[256] = {};
 	char buffer_hp[256] = {};
 	char buffer_ar[256] = {};
 	char buffer_ms[256] = {};
-	char buffer_level[256] = {};
-	char buffer_killed[256] = {};
-	char buffer_stime[256] = {};
-	char buffer_fps[256] = {};
+	char buffer_ammo[3][256] = {};
 };

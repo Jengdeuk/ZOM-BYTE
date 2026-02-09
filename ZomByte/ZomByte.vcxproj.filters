@@ -63,7 +63,7 @@
     <ClCompile Include="Actor\Item\Item.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Actor\Item\WeaponItem.cpp">
+    <ClCompile Include="Actor\Item\AmmoItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Actor\Item\StatusItem.cpp">
@@ -119,7 +119,7 @@
     <ClInclude Include="Actor\Item\Item.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Actor\Item\WeaponItem.h">
+    <ClInclude Include="Actor\Item\AmmoItem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Actor\Item\StatusItem.h">

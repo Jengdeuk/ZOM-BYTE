@@ -32,6 +32,8 @@ void Pistol::Fire(const int dirIdx)
 		return;
 	}
 
+	Super::Fire(dirIdx);
+
 	Actor::InitData actorInitData;
 	actorInitData.position = GetOwner()->GetPosition();
 	actorInitData.color = Color::White;
