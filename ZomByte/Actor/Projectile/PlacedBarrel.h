@@ -34,6 +34,7 @@ public:
 	inline const int GetWeaponInitDamage() const { return weaponDamage; }
 
 private:
+	char timeBuffer[256] = {};
 	int damage = 0;
 	int weaponDamage = 0;
 	Timer timer;

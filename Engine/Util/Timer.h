@@ -16,6 +16,8 @@ namespace JD
 		void Reset();
 		bool IsTimeOut() const;
 		void SetTargetTime(float newTargetTime);
+		inline const float GetTargetTime() const { return targetTime; }
+		inline const float GetElapsedTime() const { return elapsedTime; }
 
 	private:
 		float elapsedTime = 0.0f;

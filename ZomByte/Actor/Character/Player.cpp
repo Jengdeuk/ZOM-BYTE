@@ -75,7 +75,7 @@ void Player::TakeWeapons()
 	// 2. Uzi
 	initData.reloadTime = 0.175f;
 	initData.attackRate = 1;
-	initData.magazine = 0;
+	initData.magazine = 100;
 	initData.clip = 1;
 
 	newWeapon = std::make_unique<Uzi>(initData);
@@ -83,9 +83,9 @@ void Player::TakeWeapons()
 	GetOwner()->AddNewActor(std::move(newWeapon));
 
 	// 3. Shotgun
-	initData.reloadTime = 1.0f;
-	initData.attackRate = 4;
-	initData.magazine = 0;
+	initData.reloadTime = 0.8f;
+	initData.attackRate = 3;
+	initData.magazine = 100;
 	initData.clip = 3;
 
 	newWeapon = std::make_unique<Shotgun>(initData);
@@ -94,8 +94,8 @@ void Player::TakeWeapons()
 
 	// 4. Barrel
 	initData.reloadTime = 0.5f;
-	initData.attackRate = 5;
-	initData.magazine = 0;
+	initData.attackRate = 4;
+	initData.magazine = 100;
 	initData.clip = 1;
 
 	newWeapon = std::make_unique<Barrel>(initData);
@@ -103,9 +103,9 @@ void Player::TakeWeapons()
 	GetOwner()->AddNewActor(std::move(newWeapon));
 
 	// 5. Railgun
-	initData.reloadTime = 0.8f;
-	initData.attackRate = 5;
-	initData.magazine = 0;
+	initData.reloadTime = 0.65f;
+	initData.attackRate = 2;
+	initData.magazine = 100;
 	initData.clip = 1;
 
 	newWeapon = std::make_unique<Railgun>(initData);

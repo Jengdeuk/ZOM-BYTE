@@ -44,8 +44,8 @@ void Pistol::Fire(const int dirIdx)
 	initData.weaponDamage = GetInitAR();
 	initData.dirIdx = dirIdx;
 	initData.lifeTime = 0.5f;
-	initData.moveSpeed = 100.0f;
-	initData.drag = 1.0f;
+	initData.moveSpeed = 120.0f;
+	initData.drag = 6.0f;
 	initData.fireDir = Weapon::dir[dirIdx];
 
 	std::unique_ptr<Bullet> newBullet = std::make_unique<Bullet>(actorInitData, initData);

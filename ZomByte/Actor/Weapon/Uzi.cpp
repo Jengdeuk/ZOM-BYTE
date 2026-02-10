@@ -43,7 +43,7 @@ void Uzi::Fire(const int dirIdx)
 	initData.damage = GetAttackRate();
 	initData.weaponDamage = GetInitAR();
 	initData.dirIdx = dirIdx;
-	initData.lifeTime = 0.75f;
+	initData.lifeTime = 0.5f;
 	initData.moveSpeed = 100.0f;
 	initData.drag = 1.0f;
 	initData.fireDir = Weapon::dir[dirIdx];

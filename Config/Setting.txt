@@ -1,11 +1,5 @@
 frameRate = 120
-screenW = 145
-screenH = 46
-mapW = 108
-mapH = 46
-
-//frameRate = 120
-//screenW = 100
-//screenH = 30
-//mapW = 70
-//mapH = 24
+screenW = 70
+screenH = 44
+mapW = 44
+mapH = 44

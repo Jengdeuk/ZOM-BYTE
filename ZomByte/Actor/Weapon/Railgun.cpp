@@ -44,7 +44,7 @@ void Railgun::Fire(const int dirIdx)
 	actorInitData.sortingOrder = 11;
 
 	const Vector2<float> startPos{ Vector2<int>(GetOwner()->GetPosition()) };
-	for (int i = 1; i <= 60; ++i)
+	for (int i = 1; i <= 30; ++i)
 	{
 		actorInitData.position = startPos + Weapon::dir[dirIdx] * static_cast<float>(i);
 		std::unique_ptr<Railslug> newRailslug = std::make_unique<Railslug>(actorInitData, initData);

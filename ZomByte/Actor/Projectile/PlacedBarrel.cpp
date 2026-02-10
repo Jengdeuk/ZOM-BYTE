@@ -29,6 +29,10 @@ void PlacedBarrel::Tick(float deltaTime)
 	Super::Tick(deltaTime);
 
 	timer.Tick(deltaTime);
+
+	static const int targetTime = static_cast<int>(timer.GetTargetTime());
+	sprintf_s(timeBuffer, "%d", targetTime - static_cast<int>(timer.GetElapsedTime()));
+	SetImage(timeBuffer);
 	if (timer.IsTimeOut())
 	{
 		Explosion();
