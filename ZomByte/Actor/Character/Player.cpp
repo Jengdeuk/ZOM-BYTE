@@ -75,7 +75,7 @@ void Player::TakeWeapons()
 	// 2. Uzi
 	initData.reloadTime = 0.175f;
 	initData.attackRate = 1;
-	initData.magazine = 100;
+	initData.magazine = 0;
 	initData.clip = 1;
 
 	newWeapon = std::make_unique<Uzi>(initData);
@@ -85,7 +85,7 @@ void Player::TakeWeapons()
 	// 3. Shotgun
 	initData.reloadTime = 0.8f;
 	initData.attackRate = 3;
-	initData.magazine = 100;
+	initData.magazine = 0;
 	initData.clip = 3;
 
 	newWeapon = std::make_unique<Shotgun>(initData);
@@ -95,7 +95,7 @@ void Player::TakeWeapons()
 	// 4. Barrel
 	initData.reloadTime = 0.5f;
 	initData.attackRate = 4;
-	initData.magazine = 100;
+	initData.magazine = 0;
 	initData.clip = 1;
 
 	newWeapon = std::make_unique<Barrel>(initData);
@@ -105,7 +105,7 @@ void Player::TakeWeapons()
 	// 5. Railgun
 	initData.reloadTime = 0.65f;
 	initData.attackRate = 2;
-	initData.magazine = 100;
+	initData.magazine = 0;
 	initData.clip = 1;
 
 	newWeapon = std::make_unique<Railgun>(initData);
@@ -164,6 +164,14 @@ void Player::MovementInput(float deltaTime)
 
 void Player::ChangeWeaponInput()
 {
+	if (Input::Instance().GetKeyDown('0'))
+	{
+		for (int i = 0; i < 5; ++i)
+		{
+			RefillAmmo(i, 100);
+		}
+	}
+
 	int selectIndex = -1;
 	if (Input::Instance().GetKeyDown('1'))
 	{

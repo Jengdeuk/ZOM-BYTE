@@ -37,8 +37,15 @@ public:
 	virtual void Draw() override;
 
 private:
+	void LoadTitle(const char* filename);
+
+private:
 	int currentIndex = 0;
 	Color selectedColor = Color::Yellow;
 	Color unselectedColor = Color::Gray;
 	std::vector<std::unique_ptr<MenuItem>> items;
+
+private:
+	std::unique_ptr<char[]> titleImg;
+	std::vector<std::unique_ptr<char[]>> titleImgSliced;
 };

@@ -43,6 +43,7 @@ public:
 	inline void SetCurrentWeaponIndex(int index) { currentWeaponIndex = index; }
 
 private:
+	void DrawBackground();
 	void DrawHUD();
 
 private:
@@ -66,6 +67,7 @@ private:
 
 private:
 	std::unique_ptr<char[]> backgroundImg;
+	std::vector<std::unique_ptr<char[]>> backgroundImgSliced;
 
 private:
 	char buffer_stime[256] = {};

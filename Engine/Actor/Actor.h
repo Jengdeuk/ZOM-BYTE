@@ -49,7 +49,7 @@ namespace JD
 	public:
 		virtual void TransformUpdate(float deltaTime);
 
-	private:
+	public:
 		bool TransformWorldToScreen(Vector2<int>& outScreenPos);
 
 	public:

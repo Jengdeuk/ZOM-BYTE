@@ -9,8 +9,8 @@
 
 static const Effect::EffectFrame effectSequence[] =
 {
-	{"#", 0.5f, Color::DarkRed},
-	{"#", 0.25f, Color::DarkGray}
+	{ "#", 0.15f, Color::Red },
+	{ "#", 0.15f, Color::DarkRed }
 };
 
 BloodEffect::BloodEffect(const Actor::InitData& initData)

@@ -186,7 +186,7 @@ void PhysicsManager::ProcessCollisionExplosionEffect(const Actors& actors, float
 				{
 					Character* character = other->As<Character>();
 					const Vec2f& knockBackDir = (oPos - ePos).Normalized();
-					const float force = 20.0f * static_cast<float>(effect->GetWeaponInitDamage());
+					const float force = 5.0f * static_cast<float>(effect->GetWeaponInitDamage());
 					character->AccumulateForce(knockBackDir * force);
 					character->OnDamaged(effect->GetDamage());
 				}
