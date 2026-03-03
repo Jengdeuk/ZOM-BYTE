@@ -10,7 +10,7 @@
 | 사용 엔진 | C++ 기반 자체 개발 |
 | 프로젝트 기간 | 2026.02.05 ~ 2026.02.11 (7일) |
 | 배포 | https://drive.google.com/file/d/1KkdMCq3R0-Sj7OtLahHtk1_BRq-I7pWw/view?usp=sharing |
-| 깃허브 링크 | https://github.com/Jengdeuk/ZOM-BYTE |
+| 노션 링크 | https://jengdeuk.notion.site/ZOM-BYTE-2f75d8590d1180739638ed8ebbb06df2 |
 
 ## 게임 소개
 
@@ -23,7 +23,7 @@ C++ 콘솔 텍스트 출력 기반의 탑다운 슈팅 게임을 제작했습니
 
 [https://youtu.be/HdAMU0mTXPE?si=og5ZlKALmBonKptq](https://youtu.be/HdAMU0mTXPE?si=og5ZlKALmBonKptq)
 
-## **개발 내용**
+## 개발 내용
 
 [노션 링크](https://jengdeuk.notion.site/ZOM-BYTE-2f75d8590d1180739638ed8ebbb06df2)
 1. 화면 스크롤 및 이동 시스템
